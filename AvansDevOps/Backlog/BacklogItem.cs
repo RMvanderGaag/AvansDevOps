@@ -1,37 +1,58 @@
 namespace AvansDevOps;
 
-public class BacklogItem : BacklogComponent
+public class BacklogItem : BacklogComponent, ISubject
 {
-    private List<BacklogComponent> _tasks = new List<BacklogComponent>();
-    private string _name;
+    private List<IObserver> _observers = new List<IObserver>();
+    private List<Subtask> _tasks = new List<Subtask>();
     public override bool IsComplete { get; set; }
+    public IBacklogItemState State;
 
-    public BacklogItem(string name)
+    public BacklogItem(string name) : base(name)
     {
-        _name = name;
-        IsComplete = false;
-    }
-    
-    public void Add(BacklogComponent component)
-    {
-        _tasks.Add(component);
+        State = new Todo(this, _tasks);
     }
 
-    private bool CanComplete()
+    public void ChangeState(IBacklogItemState state)
     {
-         return _tasks.All(t => t.IsComplete); 
+        State = state;
+        Console.WriteLine($"State has been changed to: {state}");
     }
     
-    public override void Complete()
+    public void AddSubtask(Subtask subtask)
     {
-        if (CanComplete())
+        State.AddSubtask(subtask);
+    }
+
+    public void RemoveSubtask(Subtask subtask)
+    {
+        State.RemoveSubtask(subtask);
+    }
+    
+    public void Complete()
+    {
+        State.Complete(_tasks);
+    }
+    
+    public void TransitionToNextState()
+    {
+        State.TransitionToNextState();
+    }
+
+    public void Attach(IObserver observer)
+    {
+        if(!_observers.Contains(observer)) _observers.Add(observer);
+    }
+
+    public void Detach(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify()
+    {
+        foreach (var observer in _observers)
         {
-            IsComplete = true;
-            Console.WriteLine($"Backlog item {_name} is now completed.");
-        }
-        else
-        {
-            Console.WriteLine($"Backlog item {_name} cannot be completed because some backlog items are not done yet.");
+            observer.Update(this);
         }
     }
 }
