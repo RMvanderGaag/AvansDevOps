@@ -6,4 +6,6 @@ public interface ISprintState
     void CloseSprint();
     void CancelSprint();
     void FinishSprint();
+    void EditSprint(Sprint updatedSprint);
+    void AddBacklogItem(BacklogItem backlogItem);
 }
