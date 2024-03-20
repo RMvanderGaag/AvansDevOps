@@ -9,7 +9,12 @@ public class BacklogItem : BacklogComponent, ISubject
 
     public BacklogItem(string name) : base(name)
     {
-        State = new Todo(this, _tasks);
+        State = new Todo(this);
+    }
+    
+    public List<Subtask> GetTasks()
+    {
+        return _tasks;
     }
 
     public void ChangeState(IBacklogItemState state)
@@ -36,6 +41,21 @@ public class BacklogItem : BacklogComponent, ISubject
     public void TransitionToNextState()
     {
         State.TransitionToNextState();
+    }
+
+    public void Test(string role, bool isCorrect)
+    {
+        if (State is not ReadyForTesting) return;
+        if (!role.Equals("Tester")) return;
+        TransitionToNextState();
+        State.Test(isCorrect);
+    }
+    
+    public void Check(string role, bool isCorrect)
+    {
+        if (State is not Tested) return;
+        if (!role.Equals("Scrum Master")) return;
+        State.Check(isCorrect);
     }
 
     public void Attach(IObserver observer)

@@ -17,4 +17,9 @@ public abstract class BacklogComponent
         Console.WriteLine($"{GetType().Name} is now assigned to {user.Name}.");
     }
     
+    public string GetName()
+    {
+        return _name;
+    }
+    
 }
