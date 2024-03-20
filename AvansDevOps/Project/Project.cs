@@ -3,8 +3,9 @@ namespace AvansDevOps;
 public class Project : IProject, IObserver
 {
 public string Name { get; set; }
-private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>();
+private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>(); // TODO: move this to sprint because a sprint has members. A project only has a product owner.
 private List<Sprint> _sprints = new List<Sprint>();
+// TODO: add a product owner as a user property.
     
 public Project(string name)
 {
