@@ -5,52 +5,54 @@ public abstract class Sprint
     public string Name { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    private ISprintState _currentState;
+    protected ISprintState CurrentState;
     public List<BacklogItem> BacklogItems { get; } = new List<BacklogItem>();
 
-    public Sprint(string name)
+    public Sprint(string name, DateTime startDate, DateTime endDate)
     {
         Name = name;
-        _currentState = new SprintCreated(this);
+        StartDate = startDate;
+        EndDate = endDate;
+        CurrentState = new SprintCreated(this);
     }
     
     // The ChangeState method allows for the transition to a new state.
     public void ChangeState(ISprintState newState)
     {
-        _currentState = newState;
+        CurrentState = newState;
         Console.WriteLine($"Sprint {Name} has transitioned to a new state.");
     }
         
     // Actions that can be performed on the sprint. They delegate the action to the current state.
     public void StartSprint()
     {
-        _currentState.StartSprint();
+        CurrentState.StartSprint();
     }
 
     public void CloseSprint()
     {
-        _currentState.CloseSprint();
+        CurrentState.CloseSprint();
         Console.WriteLine($"Sprint {Name} is now closed.");
     }
 
     public void CancelSprint()
     {
-        _currentState.CancelSprint();
+        CurrentState.CancelSprint();
     }
 
     public void FinishSprint()
     {
-        _currentState.FinishSprint();
+        CurrentState.FinishSprint();
     }
     
     public void EditSprint(Sprint updatedSprint)
     {
-        _currentState.EditSprint(updatedSprint);
+        CurrentState.EditSprint(updatedSprint);
     }
     
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        _currentState.AddBacklogItem(backlogItem);
+        CurrentState.AddBacklogItem(backlogItem);
     }
 
     public void CreateReport(SprintReportExporter exporter)    
