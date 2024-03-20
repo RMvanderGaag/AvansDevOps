@@ -1,10 +1,9 @@
 namespace AvansDevOps;
 
-public class SprintPipelineStarted : ISprintState
+public class SprintStarted : ISprintState
 {
     private Sprint _sprint;
-    
-    public SprintPipelineStarted(Sprint sprint)
+    public SprintStarted(Sprint sprint)
     {
         this._sprint = sprint;
     }
@@ -28,14 +27,24 @@ public class SprintPipelineStarted : ISprintState
     {
         throw new NotImplementedException();
     }
-    
+
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Sprint pipeline has already been started, you can't edit it anymore.");
+        Console.WriteLine("Sprint has already started, you can't edit it anymore.");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Sprint pipeline has already been started, you can't add backlog items anymore.");
+        Console.WriteLine("Sprint has already started, you can't add backlog items anymore.");
+    }
+
+    public void StartRelease()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CancelRelease()
+    {
+        throw new NotImplementedException();
     }
 }

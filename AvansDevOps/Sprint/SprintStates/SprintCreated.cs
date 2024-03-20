@@ -42,4 +42,14 @@ public class SprintCreated : ISprintState
         _sprint.BacklogItems.Add(backlogItem);
         Console.WriteLine($"Backlog item has been added to the sprint.");
     }
+
+    public void StartRelease()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CancelRelease()
+    {
+        throw new NotImplementedException();
+    }
 }

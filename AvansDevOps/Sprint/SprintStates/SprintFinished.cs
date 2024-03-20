@@ -1,10 +1,10 @@
 namespace AvansDevOps;
 
-public class SprintPipelineFailure : ISprintState
+public class SprintFinished : ISprintState
 {
     private Sprint _sprint;
     
-    public SprintPipelineFailure(Sprint sprint)
+    public SprintFinished(Sprint sprint)
     {
         this._sprint = sprint;
     }
@@ -31,11 +31,23 @@ public class SprintPipelineFailure : ISprintState
     
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Sprint pipeline has failed, you can't edit it anymore.");
+        Console.WriteLine("Sprint has already been finished, you can't edit it anymore.");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Sprint pipeline has failed, you can't add backlog items anymore.");
+        Console.WriteLine("Sprint has already been finished, you can't add backlog items anymore.");
+    }
+
+    public void StartRelease()
+    {
+        Console.WriteLine("Starting release...");
+        _sprint.ChangeState(new ReleaseStarted());
+    }
+
+    public void CancelRelease()
+    {
+        Console.WriteLine("Release has been cancelled.");
+        _sprint.ChangeState(new ReleaseCancelled());
     }
 }

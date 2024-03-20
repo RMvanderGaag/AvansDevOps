@@ -9,7 +9,7 @@ public class SprintFactory
             case "Review":
                 return new ReviewSprint(name, startDate, endDate);
             case "Deployment":
-                return new DeploymentSprint(name, startDate, endDate);
+                return new ReleaseSprint(name, startDate, endDate);
             default:
                 throw new ArgumentException("Invalid sprint type", nameof(sprintType));
         }

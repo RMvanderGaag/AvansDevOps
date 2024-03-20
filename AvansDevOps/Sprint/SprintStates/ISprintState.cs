@@ -8,4 +8,6 @@ public interface ISprintState
     void FinishSprint();
     void EditSprint(Sprint updatedSprint);
     void AddBacklogItem(BacklogItem backlogItem);
+    void StartRelease();
+    void CancelRelease();
 }
