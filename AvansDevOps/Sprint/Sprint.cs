@@ -6,6 +6,7 @@ public abstract class Sprint
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     protected ISprintState CurrentState;
+    // TODO: add a scrum master as a user property.
     public List<BacklogItem> BacklogItems { get; } = new List<BacklogItem>();
 
     public Sprint(string name, DateTime startDate, DateTime endDate)

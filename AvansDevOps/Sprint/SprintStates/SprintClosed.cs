@@ -1,10 +1,10 @@
 namespace AvansDevOps;
 
-public class SprintCancelled : ISprintState
+public class SprintClosed : ISprintState
 {
     private Sprint _sprint;
     
-    public SprintCancelled(Sprint sprint)
+    public SprintClosed(Sprint sprint)
     {
         this._sprint = sprint;
     }
@@ -31,11 +31,21 @@ public class SprintCancelled : ISprintState
     
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Sprint is cancelled, you can't edit it anymore.");
+        Console.WriteLine("Sprint is already closed, you can't edit it anymore.");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Sprint is cancelled, you can't add backlog items anymore.");
+        Console.WriteLine("Sprint is already closed, you can't add backlog items anymore.");
+    }
+
+    public void StartRelease()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CancelRelease()
+    {
+        throw new NotImplementedException();
     }
 }
