@@ -28,4 +28,14 @@ public class SprintPipelineStarted : ISprintState
     {
         throw new NotImplementedException();
     }
+    
+    public void EditSprint(Sprint updatedSprint)
+    {
+        Console.WriteLine("Sprint pipeline has already been started, you can't edit it anymore.");
+    }
+
+    public void AddBacklogItem(BacklogItem backlogItem)
+    {
+        Console.WriteLine("Sprint pipeline has already been started, you can't add backlog items anymore.");
+    }
 }

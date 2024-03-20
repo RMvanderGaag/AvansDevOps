@@ -11,7 +11,7 @@ public class SprintCreated : ISprintState
     
     public void StartSprint()
     {
-        _sprint.ChangeState(new SprintPerformed(_sprint));
+        _sprint.ChangeState(new SprintStarted(_sprint));
     }
 
     public void CloseSprint()
@@ -27,5 +27,19 @@ public class SprintCreated : ISprintState
     public void FinishSprint()
     {
         throw new NotImplementedException();
+    }
+
+    public void EditSprint(Sprint updatedSprint)
+    {
+        _sprint.Name = updatedSprint.Name;
+        _sprint.StartDate = updatedSprint.StartDate;
+        _sprint.EndDate = updatedSprint.EndDate;
+        Console.WriteLine("Sprint has been updated.");
+    }
+
+    public void AddBacklogItem(BacklogItem backlogItem)
+    {
+        _sprint.BacklogItems.Add(backlogItem);
+        Console.WriteLine($"Backlog item has been added to the sprint.");
     }
 }

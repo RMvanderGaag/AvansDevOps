@@ -1,10 +1,9 @@
 namespace AvansDevOps;
 
-public class SprintPerformed : ISprintState
+public class SprintStarted : ISprintState
 {
     private Sprint _sprint;
-    // TODO: question: what is the performed state?
-    public SprintPerformed(Sprint sprint)
+    public SprintStarted(Sprint sprint)
     {
         this._sprint = sprint;
     }
@@ -27,5 +26,15 @@ public class SprintPerformed : ISprintState
     public void FinishSprint()
     {
         throw new NotImplementedException();
+    }
+
+    public void EditSprint(Sprint updatedSprint)
+    {
+        Console.WriteLine("Sprint has already started, you can't edit it anymore.");
+    }
+
+    public void AddBacklogItem(BacklogItem backlogItem)
+    {
+        Console.WriteLine("Sprint has already started, you can't add backlog items anymore.");
     }
 }

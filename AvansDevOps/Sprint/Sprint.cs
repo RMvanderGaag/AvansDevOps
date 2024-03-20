@@ -2,12 +2,15 @@ namespace AvansDevOps;
 
 public abstract class Sprint
 {
-    public string Name { get; }
+    public string Name { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     private ISprintState _currentState;
+    public List<BacklogItem> BacklogItems { get; } = new List<BacklogItem>();
 
     public Sprint(string name)
     {
-        name = name;
+        Name = name;
         _currentState = new SprintCreated(this);
     }
     
@@ -38,6 +41,16 @@ public abstract class Sprint
     public void FinishSprint()
     {
         _currentState.FinishSprint();
+    }
+    
+    public void EditSprint(Sprint updatedSprint)
+    {
+        _currentState.EditSprint(updatedSprint);
+    }
+    
+    public void AddBacklogItem(BacklogItem backlogItem)
+    {
+        _currentState.AddBacklogItem(backlogItem);
     }
 
     public void CreateReport(SprintReportExporter exporter)    
