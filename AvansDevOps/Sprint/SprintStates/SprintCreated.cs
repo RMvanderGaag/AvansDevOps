@@ -39,6 +39,7 @@ public class SprintCreated : ISprintState
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
+        backlogItem.Sprint = _sprint;
         _sprint.BacklogItems.Add(backlogItem);
         Console.WriteLine($"Backlog item has been added to the sprint.");
     }

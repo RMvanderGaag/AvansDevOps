@@ -1,20 +1,36 @@
 namespace AvansDevOps;
 
-public abstract class Sprint
+public abstract class Sprint : ISubject
 {
     public string Name { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     protected ISprintState CurrentState;
-    // TODO: add a scrum master as a user property.
     public List<BacklogItem> BacklogItems { get; } = new List<BacklogItem>();
+    private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>();
+    protected User _scrumMaster { get; private set; }
+    private List<IObserver> _observers = new List<IObserver>();
 
-    public Sprint(string name, DateTime startDate, DateTime endDate)
+
+    public Sprint(string name, DateTime startDate, DateTime endDate, User scrumMaster)
     {
         Name = name;
         StartDate = startDate;
         EndDate = endDate;
+        _scrumMaster = scrumMaster;
+        _memberships.Add(scrumMaster, new UserRole("Scrum Master"));
         CurrentState = new SprintCreated(this);
+    }
+    
+    public void AddMember(User user, UserRole role)
+    {
+        Attach(user);
+        _memberships.Add(user, role);
+    }
+    
+    public bool UserHasPermission(User user, string permission)
+    {
+        return _memberships[user].HasPermission(permission);
     }
     
     // The ChangeState method allows for the transition to a new state.
@@ -30,10 +46,16 @@ public abstract class Sprint
         CurrentState.StartSprint();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(User user)
     {
-        CurrentState.CloseSprint();
-        Console.WriteLine($"Sprint {Name} is now closed.");
+        if (UserHasPermission(user, "CloseSprint"))
+        {
+            CurrentState.CloseSprint();
+        }
+        else
+        {
+            Console.WriteLine("Sprint not found or user does not have permission to close sprints.");
+        }
     }
 
     public void CancelSprint()
@@ -59,5 +81,27 @@ public abstract class Sprint
     public void CreateReport(SprintReportExporter exporter)    
     {
         exporter.ExportReport(this.Name);
+    }
+
+    public void Attach(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void Detach(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(string message, string? role = null)
+    {
+        var users = _memberships.Keys.ToList();
+        if(role != null) users = _memberships.Where(m => m.Value.Name.Equals(role)).Select(m => m.Key).ToList();
+        
+        
+        foreach (var observer in users)
+        {
+            observer.Update(this, message, observer.Name);
+        }
     }
 }
