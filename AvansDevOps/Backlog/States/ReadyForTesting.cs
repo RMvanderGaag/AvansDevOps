@@ -24,8 +24,18 @@ public class ReadyForTesting : IBacklogItemState
         throw new NotImplementedException();
     }
 
-    public void TransitionToNextState()
+    public void Test(bool isCorrect)
     {
         throw new NotImplementedException();
+    }
+
+    public void Check(bool isCorrect)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void TransitionToNextState()
+    {
+        _backlogItem.ChangeState(new Testing(_backlogItem));
     }
 }

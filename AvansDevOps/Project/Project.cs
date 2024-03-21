@@ -47,12 +47,24 @@ public void CloseSprint(Sprint sprint, User user)
 
 public void Update(BacklogItem subject)
 {
-    if (subject.State is not ReadyForTesting) return;
-    var testers = _memberships.Where(m => m.Value.Name.Equals("Tester")).Select(m => m.Key);
-    foreach (var tester in testers)
+    if (subject.State is ReadyForTesting)
     {
-        Console.WriteLine($"Sending backlog item to tester {tester.Name}");
+        var testers = _memberships.Where(m => m.Value.Name.Equals("Tester")).Select(m => m.Key);
+        foreach (var tester in testers)
+        {
+            tester.NotificationService.SendNotification($"Notifying {tester.Name}: backlog item {subject.GetName()} is ready for testing.");
+        }
+    }else if (subject.State is Testing)
+    {
+        var master = _memberships.Where(m => m.Value.Name.Equals("Scrum Master")).Select(m => m.Key).First();
+        master.NotificationService.SendNotification($"Notifying {master.Name}: backlog item {subject.GetName()} is back in Todo. Blame {subject.AssignedTo?.Name}.");
     }
+    
+}
+
+public UserRole GetUserWithRole(string name)
+{
+    return _memberships.Where(m => m.Key.Name == name).Select(m => m.Value).First();
 }
 
 }

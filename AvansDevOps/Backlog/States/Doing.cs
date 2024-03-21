@@ -25,11 +25,22 @@ public class Doing : IBacklogItemState
         {
             _backlogItem.IsComplete = true;
             Console.WriteLine($"Backlog item is now completed.");
+            TransitionToNextState();
         }
         else
         {
             Console.WriteLine($"Backlog item cannot be completed because some backlog items are not done yet.");
         }
+    }
+
+    public void Test(bool isCorrect)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Check(bool isCorrect)
+    {
+        throw new NotImplementedException();
     }
 
     public void TransitionToNextState()
