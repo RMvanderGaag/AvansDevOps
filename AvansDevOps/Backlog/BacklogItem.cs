@@ -4,7 +4,7 @@ public class BacklogItem : BacklogComponent, ISubject
 {
     private List<IObserver> _observers = new List<IObserver>();
     private List<Subtask> _tasks = new List<Subtask>();
-    public override bool IsComplete { get; set; }
+    public override bool IsComplete { get; set; } // Why don't we use the State pattern instead of this?
     public IBacklogItemState State;
 
     public BacklogItem(string name) : base(name)
