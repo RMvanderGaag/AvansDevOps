@@ -2,7 +2,7 @@ namespace AvansDevOps;
 
 public class ReleaseSprint : Sprint
 {
-    public ReleaseSprint(string name, DateTime startDate, DateTime endDate) : base(name, startDate, endDate)
+    public ReleaseSprint(string name, DateTime startDate, DateTime endDate, User user) : base(name, startDate, endDate, user)
     {
     }
     

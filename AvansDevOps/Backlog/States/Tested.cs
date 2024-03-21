@@ -38,7 +38,7 @@ public class Tested : IBacklogItemState
         else
         {
             _backlogItem.ChangeState(new ReadyForTesting(_backlogItem));
-            _backlogItem.Notify();
+            _backlogItem.Sprint.Notify($"Backlog item '{_backlogItem.GetName()}' is ready for testing!", "Tester");
         }
     }
 

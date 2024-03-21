@@ -1,11 +1,11 @@
 namespace AvansDevOps;
 
-public class BacklogItem : BacklogComponent, ISubject
+public class BacklogItem : BacklogComponent
 {
-    private List<IObserver> _observers = new List<IObserver>();
     private List<Subtask> _tasks = new List<Subtask>();
     public override bool IsComplete { get; set; } // Why don't we use the State pattern instead of this?
     public IBacklogItemState State;
+    public Sprint Sprint;
 
     public BacklogItem(string name) : base(name)
     {
@@ -57,22 +57,5 @@ public class BacklogItem : BacklogComponent, ISubject
         if (!role.Equals("Scrum Master")) return;
         State.Check(isCorrect);
     }
-
-    public void Attach(IObserver observer)
-    {
-        if(!_observers.Contains(observer)) _observers.Add(observer);
-    }
-
-    public void Detach(IObserver observer)
-    {
-        _observers.Remove(observer);
-    }
-
-    public void Notify()
-    {
-        foreach (var observer in _observers)
-        {
-            observer.Update(this);
-        }
-    }
+    
 }

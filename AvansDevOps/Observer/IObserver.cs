@@ -2,5 +2,5 @@
 
 public interface IObserver
 {
-    void Update(BacklogItem subject);
+    void Update(ISubject subject, string message, string name);
 }

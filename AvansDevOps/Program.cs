@@ -3,7 +3,7 @@
 using AvansDevOps;
 
 //Creating a new project
-var project = new Project("AvansDevOps");
+var project = new Project("AvansDevOps", new User("Piet", "piet@mail.com", new EmailNotificationService()));
 
 //Creating users and assigning them to how they want to be notified
 var user1 = new User("John Doe", "john.doe@mail.com", new EmailNotificationService());
@@ -16,14 +16,14 @@ var developer = new UserRole("Developer");
 var tester = new UserRole("Tester");
 var scrumMaster = new UserRole("Scrum Master");
 
-//Adding members to the project
-project.AddMember(user1, scrumMaster);
-project.AddMember(user2, tester);
-project.AddMember(user3, developer);
-project.AddMember(user4, developer);
 
 //Adding sprint
-var sprint = new ReviewSprint("Sprint 1", new DateTime(2024, 4, 15), new DateTime(2024, 04, 20));
+var sprint = new ReviewSprint("Sprint 1", new DateTime(2024, 4, 15), new DateTime(2024, 04, 20), user1);
+
+//Adding members to the project
+sprint.AddMember(user2, tester);
+sprint.AddMember(user3, developer);
+sprint.AddMember(user4, developer);
 
 //Adding backlog items and subtasks
 var backlogItem1 = new BacklogItem("Create a new project");
@@ -37,9 +37,9 @@ backlogItem1.AddSubtask(subtask1);
 backlogItem1.AddSubtask(subtask2);
 
 //Adding backlog items to the sprint
-sprint.BacklogItems.Add(backlogItem1);
-sprint.BacklogItems.Add(backlogItem2);
-sprint.BacklogItems.Add(backlogItem3);
+sprint.AddBacklogItem(backlogItem1);
+sprint.AddBacklogItem(backlogItem2);
+sprint.AddBacklogItem(backlogItem3);
 
 //Assigning backlog items and subtasks to users
 backlogItem1.AssignTo(user3);
