@@ -23,7 +23,7 @@ project.AddMember(user3, developer);
 project.AddMember(user4, developer);
 
 //Adding sprint
-var sprint = new ReviewSprint("Sprint 1");
+var sprint = new ReviewSprint("Sprint 1", new DateTime(2024, 4, 15), new DateTime(2024, 04, 20));
 
 //Adding backlog items and subtasks
 var backlogItem1 = new BacklogItem("Create a new project");

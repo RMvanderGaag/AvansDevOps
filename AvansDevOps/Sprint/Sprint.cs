@@ -6,15 +6,28 @@ public abstract class Sprint
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     protected ISprintState CurrentState;
-    // TODO: add a scrum master as a user property.
     public List<BacklogItem> BacklogItems { get; } = new List<BacklogItem>();
+    private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>();
+    private User _scrumMaster;
 
-    public Sprint(string name, DateTime startDate, DateTime endDate)
+
+    public Sprint(string name, DateTime startDate, DateTime endDate, User scrumMaster)
     {
         Name = name;
         StartDate = startDate;
         EndDate = endDate;
+        _scrumMaster = scrumMaster;
         CurrentState = new SprintCreated(this);
+    }
+    
+    public void AddMember(User user, UserRole role)
+    {
+        _memberships.Add(user, role);
+    }
+    
+    public bool UserHasPermission(User user, string permission)
+    {
+        return _memberships[user].HasPermission(permission);
     }
     
     // The ChangeState method allows for the transition to a new state.
@@ -30,10 +43,34 @@ public abstract class Sprint
         CurrentState.StartSprint();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(User user)
     {
-        CurrentState.CloseSprint();
-        Console.WriteLine($"Sprint {Name} is now closed.");
+        if (UserHasPermission(user, "CloseSprint"))
+        {
+            CurrentState.CloseSprint();
+        }
+        else
+        {
+            Console.WriteLine("Sprint not found or user does not have permission to close sprints.");
+        }
+    }
+    
+    public void Update(BacklogItem subject)
+    {
+        if (subject.State is ReadyForTesting)
+        {
+            var testers = _memberships.Where(m => m.Value.Name.Equals("Tester")).Select(m => m.Key);
+            foreach (var tester in testers)
+            {
+                tester.NotificationService.SendNotification($"Notifying {tester.Name}: backlog item {subject.GetName()} is ready for testing.");
+            }
+        }
+        else if (subject.State is Testing)
+        {
+            var master = _memberships.Where(m => m.Value.Name.Equals("Scrum Master")).Select(m => m.Key).First();
+            master.NotificationService.SendNotification($"Notifying {master.Name}: backlog item {subject.GetName()} is back in Todo. Blame {subject.AssignedTo?.Name}.");
+        }
+        
     }
 
     public void CancelSprint()
