@@ -1,25 +1,31 @@
+using AvansDevOps.DevOps;
+
 namespace AvansDevOps;
 
 public class Pipeline
 {
-    private readonly List<ICommand> _commands = new List<ICommand>();
-    private readonly Sprint _sprint;
-
-    public Pipeline(Sprint sprint)
+    private readonly DevOpsAdapter _devOpsAdapter;
+    
+    public Pipeline()
     {
-        _sprint = sprint;
+        _devOpsAdapter = new DevOpsAdapter();
     }
     
-    public void AddCommand(ICommand command)
+    public bool Execute(bool failing)
     {
-        _commands.Add(command);
-    }
-    
-    public void Execute()
-    {
-        foreach (var command in _commands)
+        _devOpsAdapter.Sources();
+        _devOpsAdapter.Package();
+        _devOpsAdapter.Build();
+        if (failing)
         {
-            command.Execute();
+            Console.WriteLine("Pipeline failed. Try again!");
+            return false;
         }
+        _devOpsAdapter.Test();
+        _devOpsAdapter.Analysis();
+        _devOpsAdapter.Deploy();
+        _devOpsAdapter.Utility();
+        Console.WriteLine("Pipeline has been completed.");
+        return true;
     }
 }

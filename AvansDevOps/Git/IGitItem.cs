@@ -1,6 +1,6 @@
 namespace AvansDevOps;
 
-public class Thread
+public interface IGitItem
 {
     
 }

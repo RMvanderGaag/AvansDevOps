@@ -2,40 +2,31 @@ namespace AvansDevOps;
 
 public class Project : IProject
 {
-public string Name { get; set; }
-private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>();
-private List<Sprint> _sprints = new List<Sprint>();
+    public string Name { get; set; }
+    private List<Sprint> _sprints = new List<Sprint>();
+    private User _productOwner;
+    public readonly GitAdapter GitAdapter = new GitAdapter();
     
-public Project(string name)
-{
-    Name = name;
-}
+    public void Commit(BacklogItem backlogItem)
+    {
+        GitAdapter.Commit(backlogItem);
+    }
     
-public void AddMember(User user, UserRole role)
-{
-    _memberships.Add(user, role);
-}
+    public void Push()
+    {
+        GitAdapter.Push();
+    }
+        
+    public Project(string name, User productOwner)
+    {
+        Name = name;
+        _productOwner = productOwner;
+        
+    }
 
-public bool UserHasPermission(User user, string permission)
-{
-    return _memberships[user].HasPermission(permission);
-}
-    
-public void AddSprint(Sprint sprint)
-{
-    _sprints.Add(sprint);
-}
-    
-public void CloseSprint(Sprint sprint, User user)
-{
-    var sprintResult = _sprints.FirstOrDefault(s => s == sprint);
-    if (sprintResult != null && UserHasPermission(user, "CloseSprint"))
+    public void AddSprint(Sprint sprint)
     {
-        sprint.CloseSprint();
+        sprint.AddMember(_productOwner, new UserRole("Product Owner"));
+        _sprints.Add(sprint);
     }
-    else
-    {
-        Console.WriteLine("Sprint not found or user does not have permission to close sprints.");
-    }
-}
 }
