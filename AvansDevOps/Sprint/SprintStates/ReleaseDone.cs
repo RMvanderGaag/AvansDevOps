@@ -2,7 +2,15 @@ namespace AvansDevOps;
 
 public class ReleaseDone : ISprintState
 {
-    public void StartRelease()
+    private Sprint _sprint;
+    
+    public ReleaseDone(Sprint sprint)
+    {
+        this._sprint = sprint;
+        Console.WriteLine("Release has been completed.");
+    }
+    
+    public void StartRelease(bool failRelease)
     {
         throw new NotImplementedException();
     }
@@ -12,12 +20,17 @@ public class ReleaseDone : ISprintState
         throw new NotImplementedException();
     }
 
+    public void StartReview()
+    {
+        throw new NotImplementedException();
+    }
+
     public void StartSprint()
     {
         throw new NotImplementedException();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(string review)
     {
         throw new NotImplementedException();
     }

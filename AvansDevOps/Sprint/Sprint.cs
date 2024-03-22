@@ -10,6 +10,7 @@ public abstract class Sprint : ISubject
     private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>();
     protected User _scrumMaster { get; private set; }
     private List<IObserver> _observers = new List<IObserver>();
+    public readonly Pipeline Pipeline = new Pipeline();
 
 
     public Sprint(string name, DateTime startDate, DateTime endDate, User scrumMaster)
@@ -18,7 +19,9 @@ public abstract class Sprint : ISubject
         StartDate = startDate;
         EndDate = endDate;
         _scrumMaster = scrumMaster;
-        _memberships.Add(scrumMaster, new UserRole("Scrum Master"));
+        var role = new UserRole("Scrum Master");
+        role.AddPermission(new UserPermission("CloseSprint"));
+        _memberships.Add(scrumMaster, role);
         CurrentState = new SprintCreated(this);
     }
     
@@ -37,7 +40,6 @@ public abstract class Sprint : ISubject
     public void ChangeState(ISprintState newState)
     {
         CurrentState = newState;
-        Console.WriteLine($"Sprint {Name} has transitioned to a new state.");
     }
         
     // Actions that can be performed on the sprint. They delegate the action to the current state.
@@ -45,12 +47,22 @@ public abstract class Sprint : ISubject
     {
         CurrentState.StartSprint();
     }
+    
+    public void StartReview()
+    {
+        CurrentState.StartReview();
+    }
+    
+    public void StartRelease(bool failRelease)
+    {
+        CurrentState.StartRelease(failRelease);
+    }
 
-    public void CloseSprint(User user)
+    public void CloseSprint(User user, string review)
     {
         if (UserHasPermission(user, "CloseSprint"))
         {
-            CurrentState.CloseSprint();
+            CurrentState.CloseSprint(review);
         }
         else
         {
@@ -93,11 +105,10 @@ public abstract class Sprint : ISubject
         _observers.Remove(observer);
     }
 
-    public void Notify(string message, string? role = null)
+    public void Notify(string message, List<string> roles = null)
     {
         var users = _memberships.Keys.ToList();
-        if(role != null) users = _memberships.Where(m => m.Value.Name.Equals(role)).Select(m => m.Key).ToList();
-        
+        if(roles != null) users = _memberships.Where(m => roles.Contains(m.Value.Name)).Select(m => m.Key).ToList();
         
         foreach (var observer in users)
         {

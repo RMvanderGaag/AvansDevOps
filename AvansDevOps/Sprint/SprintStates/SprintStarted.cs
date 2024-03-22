@@ -5,6 +5,7 @@ public class SprintStarted : ISprintState
     private Sprint _sprint;
     public SprintStarted(Sprint sprint)
     {
+        Console.WriteLine("Sprint has started.");
         this._sprint = sprint;
     }
     
@@ -13,7 +14,7 @@ public class SprintStarted : ISprintState
         throw new NotImplementedException();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(string review)
     {
         throw new NotImplementedException();
     }
@@ -25,7 +26,14 @@ public class SprintStarted : ISprintState
 
     public void FinishSprint()
     {
-        throw new NotImplementedException();
+        if (_sprint.EndDate < DateTime.Now)
+        {
+            _sprint.ChangeState(new SprintFinished(_sprint));
+        }
+        else
+        {
+            Console.WriteLine("Sprint has not ended yet.");
+        }
     }
 
     public void EditSprint(Sprint updatedSprint)
@@ -38,12 +46,17 @@ public class SprintStarted : ISprintState
         Console.WriteLine("Sprint has already started, you can't add backlog items anymore.");
     }
 
-    public void StartRelease()
+    public void StartRelease(bool failRelease)
     {
         throw new NotImplementedException();
     }
 
     public void CancelRelease()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void StartReview()
     {
         throw new NotImplementedException();
     }

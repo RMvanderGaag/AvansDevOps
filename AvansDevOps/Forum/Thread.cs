@@ -15,7 +15,7 @@ public class Thread
         if (_backlogItem.State is not Done)
         {
             _comments.Add(comment);
-            _backlogItem.Sprint.Notify($"New comment added to backlog item '{_backlogItem.GetName()}'!", "Developer");
+            _backlogItem.Sprint.Notify($"New comment added to backlog item '{_backlogItem.GetName()}'!");
         }
         else
         {

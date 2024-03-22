@@ -1,25 +1,27 @@
 namespace AvansDevOps;
 
-public class SprintCreated : ISprintState
+public class SprintReviewing : ISprintState
 {
     private Sprint _sprint;
     
-    public SprintCreated(Sprint sprint)
+    public SprintReviewing(Sprint sprint)
     {
         this._sprint = sprint;
-        Console.WriteLine("Sprint has been created.");
+        Console.WriteLine("Sprint review has started.");
     }
     
     public void StartSprint()
     {
-        _sprint.ChangeState(new SprintStarted(_sprint));
+        throw new NotImplementedException();
     }
 
     public void CloseSprint(string review)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(review)) return;
+        
+        _sprint.ChangeState(new SprintClosed(_sprint));
     }
-    
+
     public void CancelSprint()
     {
         throw new NotImplementedException();
@@ -32,17 +34,12 @@ public class SprintCreated : ISprintState
 
     public void EditSprint(Sprint updatedSprint)
     {
-        _sprint.Name = updatedSprint.Name;
-        _sprint.StartDate = updatedSprint.StartDate;
-        _sprint.EndDate = updatedSprint.EndDate;
-        Console.WriteLine("Sprint has been updated.");
+        throw new NotImplementedException();
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        backlogItem.Sprint = _sprint;
-        _sprint.BacklogItems.Add(backlogItem);
-        Console.WriteLine($"Backlog item has been added to the sprint.");
+        throw new NotImplementedException();
     }
 
     public void StartRelease(bool failRelease)

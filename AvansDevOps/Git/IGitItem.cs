@@ -1,6 +1,6 @@
 namespace AvansDevOps;
 
-public class GitPackage
+public interface IGitItem
 {
     
 }

@@ -11,9 +11,5 @@ public class ReleaseSprint : Sprint
     {
         this.CurrentState.CancelRelease();
     }
-
-    public void StartRelease()
-    {
-        this.CurrentState.StartRelease();
-    }
+    
 }
