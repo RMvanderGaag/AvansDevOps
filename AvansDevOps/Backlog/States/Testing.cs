@@ -32,7 +32,7 @@ public class Testing : IBacklogItemState
         }
         else
         {
-            _backlogItem.Sprint.Notify($"Backlog item '{_backlogItem.GetName()}' did not pass the test! Blame: {_backlogItem.AssignedTo?.Name}", "Scrum Master");
+            _backlogItem.Sprint.Notify($"Backlog item '{_backlogItem.GetName()}' did not pass the test! Blame: {_backlogItem.AssignedTo?.Name}", ["Scrum Master"]);
             _backlogItem.ChangeState(new Todo(_backlogItem));
         }
     }

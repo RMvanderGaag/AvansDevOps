@@ -3,6 +3,11 @@ namespace AvansDevOps.DevOps;
 public class DevOpsAdapter : IDevops
 {
     private DevOps _devops;
+
+    public DevOpsAdapter()
+    {
+        this._devops = new DevOps();
+    }
     
     public void Sources()
     {

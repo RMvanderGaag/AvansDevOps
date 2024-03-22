@@ -2,7 +2,7 @@ namespace AvansDevOps;
 
 public class Git
 {
-    public void Commit()
+    public void Commit(IGitItem item)
     {
         Console.WriteLine("Committing changes to the repository.");
     }

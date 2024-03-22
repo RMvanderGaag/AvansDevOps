@@ -1,6 +1,6 @@
 namespace AvansDevOps;
 
-public class BacklogItem : BacklogComponent
+public class BacklogItem : BacklogComponent, IGitItem
 {
     private List<Subtask> _tasks = new List<Subtask>();
     public override bool IsComplete { get; set; } // Why don't we use the State pattern instead of this?

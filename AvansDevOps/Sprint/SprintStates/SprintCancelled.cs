@@ -7,6 +7,7 @@ public class SprintCancelled : ISprintState
     public SprintCancelled(Sprint sprint)
     {
         this._sprint = sprint;
+        Console.WriteLine("Sprint has been cancelled.");
     }
     
     public void StartSprint()
@@ -14,7 +15,7 @@ public class SprintCancelled : ISprintState
         throw new NotImplementedException();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(string review)
     {
         throw new NotImplementedException();
     }
@@ -39,12 +40,17 @@ public class SprintCancelled : ISprintState
         Console.WriteLine("Sprint is cancelled, you can't add backlog items anymore.");
     }
 
-    public void StartRelease()
+    public void StartRelease(bool failRelease)
     {
         throw new NotImplementedException();
     }
 
     public void CancelRelease()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void StartReview()
     {
         throw new NotImplementedException();
     }

@@ -6,12 +6,12 @@ public class GitAdapter : IGit
     
     public GitAdapter()
     {
-        _git = new Git();
+        this._git = new Git();
     }
     
-    public void Commit()
+    public void Commit(IGitItem backlogItem)
     {
-        this._git.Commit();
+        this._git.Commit(backlogItem);
     }
 
     public void Push()

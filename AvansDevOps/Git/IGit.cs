@@ -2,7 +2,7 @@ namespace AvansDevOps;
 
 public interface IGit
 {
-    void Commit();
+    void Commit(IGitItem item);
     void Push();
     void Pull();
     void Merge();

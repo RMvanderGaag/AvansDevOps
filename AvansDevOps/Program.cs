@@ -3,22 +3,21 @@
 using AvansDevOps;
 
 //Creating a new project
-var project = new Project("AvansDevOps", new User("Piet", "piet@mail.com", new EmailNotificationService()));
+var project = new Project("AvansDevOps", new User("Piet", "piet@mail.com",[ new EmailNotificationService()]));
 
 //Creating users and assigning them to how they want to be notified
-var user1 = new User("John Doe", "john.doe@mail.com", new EmailNotificationService());
-var user2 = new User("Jane Doe", "jane.doe@mail.com", new SlackNotificationService());
-var user3 = new User("Wim Ortel", "w.ortel@mail.com", new EmailNotificationService());
-var user4 = new User("Kees Aas", "k.aas@mail.com", new SlackNotificationService());
+var user1 = new User("John Doe", "john.doe@mail.com", [new EmailNotificationService(), new SlackNotificationService()]);
+var user2 = new User("Jane Doe", "jane.doe@mail.com", [new SlackNotificationService()]);
+var user3 = new User("Wim Ortel", "w.ortel@mail.com", [new EmailNotificationService()]);
+var user4 = new User("Kees Aas", "k.aas@mail.com", [new SlackNotificationService(), new EmailNotificationService()]);
 
 //Adding roles
 var developer = new UserRole("Developer");
 var tester = new UserRole("Tester");
-var scrumMaster = new UserRole("Scrum Master");
 
 
 //Adding sprint
-var sprint = new ReviewSprint("Sprint 1", new DateTime(2024, 4, 15), new DateTime(2024, 04, 20), user1);
+var sprint = new ReviewSprint("Sprint 1", new DateTime(2024, 3, 20), new DateTime(2024, 03, 21), user1);
 
 //Adding members to the project
 sprint.AddMember(user2, tester);
@@ -72,7 +71,13 @@ backlogItem3.Test("Tester", true);
 backlogItem3.Check("Scrum Master", true); // Backlog item is checked and is now done
 
 
+sprint.FinishSprint();
+// sprint.StartReview();
+// sprint.CloseSprint(user1, "Sprint was successful!");
 
+sprint.StartRelease(false);
+sprint.CreateReport(new SprintReportPDF());
 
-
+project.Commit(backlogItem1);
+project.Push();
 

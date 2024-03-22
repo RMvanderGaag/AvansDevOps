@@ -7,6 +7,7 @@ public class SprintFinished : ISprintState
     public SprintFinished(Sprint sprint)
     {
         this._sprint = sprint;
+        Console.WriteLine("Sprint has finished.");
     }
     
     public void StartSprint()
@@ -14,14 +15,14 @@ public class SprintFinished : ISprintState
         throw new NotImplementedException();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(string review)
     {
         throw new NotImplementedException();
     }
     
     public void CancelSprint()
     {
-        throw new NotImplementedException();
+        _sprint.Notify("Sprint has been cancelled.", ["Scrum Master"]);
     }
 
     public void FinishSprint()
@@ -39,15 +40,18 @@ public class SprintFinished : ISprintState
         Console.WriteLine("Sprint has already been finished, you can't add backlog items anymore.");
     }
 
-    public void StartRelease()
+    public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Starting release...");
-        _sprint.ChangeState(new ReleaseStarted());
+        _sprint.ChangeState(new ReleaseStarted(_sprint, failRelease));
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Release has been cancelled.");
-        _sprint.ChangeState(new ReleaseCancelled());
+        _sprint.ChangeState(new ReleaseCancelled(_sprint));
+    }
+
+    public void StartReview()
+    {
+        _sprint.ChangeState(new SprintReviewing(_sprint));
     }
 }

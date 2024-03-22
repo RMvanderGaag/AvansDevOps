@@ -2,7 +2,27 @@ namespace AvansDevOps;
 
 public class ReleaseStarted : ISprintState
 {
-    public void StartRelease()
+    private Sprint _sprint;
+    
+    public ReleaseStarted(Sprint sprint, bool failRelease)
+    {
+        this._sprint = sprint;
+
+        Console.WriteLine("Release has started.");
+
+        if (_sprint.Pipeline.Execute(failRelease))
+        {
+            _sprint.ChangeState(new ReleaseDone(_sprint));
+            _sprint.Notify("Release has been completed.", ["Scrum Master", "Product Owner"]);
+        }
+        else
+        {
+            _sprint.ChangeState(new SprintFinished(_sprint));
+            _sprint.Notify("Release has failed.", ["Scrum Master"]);
+        }
+    }
+    
+    public void StartRelease(bool failRelease)
     {
         throw new NotImplementedException();
     }
@@ -12,12 +32,17 @@ public class ReleaseStarted : ISprintState
         throw new NotImplementedException();
     }
 
+    public void StartReview()
+    {
+        throw new NotImplementedException();
+    }
+
     public void StartSprint()
     {
         throw new NotImplementedException();
     }
 
-    public void CloseSprint()
+    public void CloseSprint(string review)
     {
         throw new NotImplementedException();
     }
