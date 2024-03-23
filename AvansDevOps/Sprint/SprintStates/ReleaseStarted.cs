@@ -22,9 +22,14 @@ public class ReleaseStarted : ISprintState
         }
     }
     
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while release is started.");
+    }
+    
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't start a release while release has already started.");
+        ActionNotAllowed("start release");
     }
 
     public void CancelRelease()
@@ -34,36 +39,36 @@ public class ReleaseStarted : ISprintState
 
     public void StartReview()
     {
-        Console.WriteLine("Can't start a review while release is started.");
+        ActionNotAllowed("start review");
     }
 
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint while release is started.");
+        ActionNotAllowed("start");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint while release is started.");
+        ActionNotAllowed("close");
     }
 
     public void CancelSprint()
     {
-        Console.WriteLine("Can't cancel a sprint while release is started.");
+        ActionNotAllowed("cancel");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Can't finish a sprint while release is started.");
+        ActionNotAllowed("finish");
     }
 
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Can't edit a sprint while release is started.");
+        ActionNotAllowed("edit");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Can't add a backlog item to a sprint while release is started.");
+        ActionNotAllowed("add backlog item to");
     }
 }

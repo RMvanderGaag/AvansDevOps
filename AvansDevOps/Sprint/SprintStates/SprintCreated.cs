@@ -10,6 +10,11 @@ public class SprintCreated : ISprintState
         Console.WriteLine("Sprint has been created.");
     }
     
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while sprint is created.");
+    }
+    
     public void StartSprint()
     {
         _sprint.ChangeState(new SprintStarted(_sprint));
@@ -17,17 +22,17 @@ public class SprintCreated : ISprintState
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint while sprint is created.");
+        ActionNotAllowed("close");
     }
     
     public void CancelSprint()
     {
-        Console.WriteLine("Sprint can't be cancelled while sprint is created.");
+        ActionNotAllowed("cancel");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Sprint can't be finished while sprint is created.");
+        ActionNotAllowed("finish");
     }
 
     public void EditSprint(Sprint updatedSprint)
@@ -47,16 +52,16 @@ public class SprintCreated : ISprintState
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't release a sprint while sprint is created.");
+        ActionNotAllowed("start release");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Can't cancel a release while sprint is created.");
+        ActionNotAllowed("cancel release");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("Can't start a review for a sprint while sprint is created.");
+        ActionNotAllowed("start review");
     }
 }

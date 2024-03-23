@@ -10,48 +10,53 @@ public class SprintClosed : ISprintState
         Console.WriteLine("Sprint has been closed.");
     }
     
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while sprint is closed.");
+    }
+    
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint while sprint is closed.");
+        ActionNotAllowed("start");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Sprint is already closed, you can't close it anymore.");
+        ActionNotAllowed("close");
     }
     
     public void CancelSprint()
     {
-        Console.WriteLine("Sprint is already closed, you can't cancel it anymore.");
+        ActionNotAllowed("cancel");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Sprint is already closed, you can't finish it anymore.");
+        ActionNotAllowed("finish");
     }
     
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Sprint is already closed, you can't edit it anymore.");
+        ActionNotAllowed("edit");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Sprint is already closed, you can't add backlog items anymore.");
+        ActionNotAllowed("add backlog item to");
     }
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't release a sprint while sprint is closed.");
+        ActionNotAllowed("start release");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Can't cancel a release while sprint is closed.");
+        ActionNotAllowed("cancel release");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("Can't start a review for a sprint while sprint is closed.");
+        ActionNotAllowed("start review");
     }
 }

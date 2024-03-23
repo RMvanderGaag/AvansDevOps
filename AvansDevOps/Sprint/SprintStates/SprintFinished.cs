@@ -10,14 +10,19 @@ public class SprintFinished : ISprintState
         Console.WriteLine("Sprint has finished.");
     }
     
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while sprint is finished.");
+    }
+    
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint while sprint is finished.");
+        ActionNotAllowed("start");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint while sprint is finished.");
+        ActionNotAllowed("close");
     }
     
     public void CancelSprint()
@@ -27,17 +32,17 @@ public class SprintFinished : ISprintState
 
     public void FinishSprint()
     {
-        Console.WriteLine("Sprint has already been finished.");
+        ActionNotAllowed("finish");
     }
     
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Sprint has already been finished, you can't edit it anymore.");
+        ActionNotAllowed("edit");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Sprint has already been finished, you can't add backlog items anymore.");
+        ActionNotAllowed("add backlog item to");
     }
 
     public void StartRelease(bool failRelease)
