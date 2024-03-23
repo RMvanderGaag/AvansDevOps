@@ -17,17 +17,17 @@ public class SprintCreated : ISprintState
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint that has not started yet.");
+        Console.WriteLine("Can't close a sprint while sprint is created.");
     }
     
     public void CancelSprint()
     {
-        Console.WriteLine("Sprint can't be cancelled.");
+        Console.WriteLine("Sprint can't be cancelled while sprint is created.");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Sprint can't be finished.");
+        Console.WriteLine("Sprint can't be finished while sprint is created.");
     }
 
     public void EditSprint(Sprint updatedSprint)
@@ -47,16 +47,16 @@ public class SprintCreated : ISprintState
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't release a sprint that has not started yet.");
+        Console.WriteLine("Can't release a sprint while sprint is created.");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Can't cancel a release that has not started yet.");
+        Console.WriteLine("Can't cancel a release while sprint is created.");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("Can't start a review for a sprint that has not started yet.");
+        Console.WriteLine("Can't start a review for a sprint while sprint is created.");
     }
 }

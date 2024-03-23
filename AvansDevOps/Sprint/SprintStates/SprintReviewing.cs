@@ -12,7 +12,7 @@ public class SprintReviewing : ISprintState
     
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint that has already started.");
+        Console.WriteLine("Can't start a sprint while sprint review is ongoing.");
     }
 
     public void CloseSprint(string review)
@@ -24,32 +24,32 @@ public class SprintReviewing : ISprintState
 
     public void CancelSprint()
     {
-        Console.WriteLine("Can't cancel a sprint that has already started.");
+        Console.WriteLine("Can't cancel a sprint while sprint review is ongoing.");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Can't finish a sprint that has not ended yet.");
+        Console.WriteLine("Can't finish a sprint while sprint review is ongoing.");
     }
 
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Can't edit a sprint that has already started.");
+        Console.WriteLine("Can't edit a sprint while sprint review is ongoing.");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Can't add a backlog item to a sprint that has already started.");
+        Console.WriteLine("Can't add a backlog item to a sprint while sprint review is ongoing.");
     }
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't release a sprint that has not ended yet.");
+        Console.WriteLine("Can't release a sprint while sprint review is ongoing.");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Can't cancel a release that has not started yet.");
+        Console.WriteLine("Can't cancel a release while sprint review is ongoing.");
     }
 
     public void StartReview()

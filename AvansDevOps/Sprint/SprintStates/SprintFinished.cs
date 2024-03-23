@@ -12,12 +12,12 @@ public class SprintFinished : ISprintState
     
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint that has already started.");
+        Console.WriteLine("Can't start a sprint while sprint is finished.");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint that has already ended.");
+        Console.WriteLine("Can't close a sprint while sprint is finished.");
     }
     
     public void CancelSprint()
