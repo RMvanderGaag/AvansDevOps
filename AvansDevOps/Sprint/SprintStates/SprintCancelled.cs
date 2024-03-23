@@ -12,12 +12,12 @@ public class SprintCancelled : ISprintState
     
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint that has been cancelled.");
+        Console.WriteLine("Can't start a sprint while sprint is cancelled.");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint that has been cancelled.");
+        Console.WriteLine("Can't close a sprint while sprint is cancelled.");
     }
     
     public void CancelSprint()
@@ -42,16 +42,16 @@ public class SprintCancelled : ISprintState
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't release a sprint that has been cancelled.");
+        Console.WriteLine("Can't release a sprint while sprint is cancelled.");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Can't cancel a release that has been cancelled.");
+        Console.WriteLine("Can't cancel a release while sprint is cancelled.");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("Can't start a review for a sprint that has been cancelled.");
+        Console.WriteLine("Can't start a review for a sprint while sprint is cancelled.");
     }
 }
