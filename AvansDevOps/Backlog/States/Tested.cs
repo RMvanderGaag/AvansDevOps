@@ -16,17 +16,17 @@ public class Tested : IBacklogItemState
 
     public void RemoveSubtask(Subtask subtask)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't remove a subtask from a backlog item that has been tested.");
     }
 
     public void Complete(List<Subtask> tasks)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't complete a backlog item that has been tested.");
     }
 
     public void Test(bool isCorrect)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't test a backlog item that has been tested.");
     }
 
     public void Check(bool isCorrect)

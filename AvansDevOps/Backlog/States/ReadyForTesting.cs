@@ -11,27 +11,27 @@ public class ReadyForTesting : IBacklogItemState
     
     public void AddSubtask(Subtask subtask)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't add a subtask to a backlog item that is ready for testing.");
     }
 
     public void RemoveSubtask(Subtask subtask)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't remove a subtask from a backlog item that is ready for testing.");
     }
 
     public void Complete(List<Subtask> tasks)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't complete a backlog item that is ready for testing.");
     }
 
     public void Test(bool isCorrect)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't test a backlog item that is ready for testing.");
     }
 
     public void Check(bool isCorrect)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't check a backlog item that is ready for testing.");
     }
 
     public void TransitionToNextState()

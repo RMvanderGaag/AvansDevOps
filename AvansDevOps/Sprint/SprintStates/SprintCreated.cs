@@ -17,17 +17,17 @@ public class SprintCreated : ISprintState
 
     public void CloseSprint(string review)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't close a sprint that has not started yet.");
     }
     
     public void CancelSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint can't be cancelled.");
     }
 
     public void FinishSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint can't be finished.");
     }
 
     public void EditSprint(Sprint updatedSprint)
@@ -47,16 +47,16 @@ public class SprintCreated : ISprintState
 
     public void StartRelease(bool failRelease)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't release a sprint that has not started yet.");
     }
 
     public void CancelRelease()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't cancel a release that has not started yet.");
     }
 
     public void StartReview()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a review for a sprint that has not started yet.");
     }
 }
