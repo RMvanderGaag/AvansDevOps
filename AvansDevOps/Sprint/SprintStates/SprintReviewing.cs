@@ -10,9 +10,14 @@ public class SprintReviewing : ISprintState
         Console.WriteLine("Sprint review has started.");
     }
     
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while review is ongoing.");
+    }
+    
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint while sprint review is ongoing.");
+        ActionNotAllowed("start");
     }
 
     public void CloseSprint(string review)
@@ -24,36 +29,36 @@ public class SprintReviewing : ISprintState
 
     public void CancelSprint()
     {
-        Console.WriteLine("Can't cancel a sprint while sprint review is ongoing.");
+        ActionNotAllowed("cancel");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Can't finish a sprint while sprint review is ongoing.");
+        ActionNotAllowed("finish");
     }
 
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Can't edit a sprint while sprint review is ongoing.");
+        ActionNotAllowed("edit");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Can't add a backlog item to a sprint while sprint review is ongoing.");
+        ActionNotAllowed("add backlog item to");
     }
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't release a sprint while sprint review is ongoing.");
+        ActionNotAllowed("start release");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Can't cancel a release while sprint review is ongoing.");
+        ActionNotAllowed("cancel release");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("Sprint review has already started.");
+        ActionNotAllowed("start review");
     }
 }
