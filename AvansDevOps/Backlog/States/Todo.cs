@@ -23,17 +23,17 @@ public class Todo : IBacklogItemState
 
     public void Complete(List<Subtask> tasks)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't complete a backlog item that has not been started yet.");
     }
 
     public void Test(bool isCorrect)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't test a backlog item that has not been started yet.");
     }
 
     public void Check(bool isCorrect)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't check a backlog item that has not been started yet.");
     }
 
     public void TransitionToNextState()

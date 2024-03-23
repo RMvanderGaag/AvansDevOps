@@ -12,12 +12,12 @@ public class SprintFinished : ISprintState
     
     public void StartSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a sprint that has already started.");
     }
 
     public void CloseSprint(string review)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't close a sprint that has already ended.");
     }
     
     public void CancelSprint()
@@ -27,7 +27,7 @@ public class SprintFinished : ISprintState
 
     public void FinishSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint has already been finished.");
     }
     
     public void EditSprint(Sprint updatedSprint)

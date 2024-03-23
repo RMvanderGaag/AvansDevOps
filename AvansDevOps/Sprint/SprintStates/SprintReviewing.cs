@@ -12,7 +12,7 @@ public class SprintReviewing : ISprintState
     
     public void StartSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a sprint that has already started.");
     }
 
     public void CloseSprint(string review)
@@ -24,36 +24,36 @@ public class SprintReviewing : ISprintState
 
     public void CancelSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't cancel a sprint that has already started.");
     }
 
     public void FinishSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't finish a sprint that has not ended yet.");
     }
 
     public void EditSprint(Sprint updatedSprint)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't edit a sprint that has already started.");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't add a backlog item to a sprint that has already started.");
     }
 
     public void StartRelease(bool failRelease)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't release a sprint that has not ended yet.");
     }
 
     public void CancelRelease()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't cancel a release that has not started yet.");
     }
 
     public void StartReview()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint review has already started.");
     }
 }
