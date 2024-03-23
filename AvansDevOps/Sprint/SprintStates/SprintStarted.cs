@@ -8,20 +8,25 @@ public class SprintStarted : ISprintState
         Console.WriteLine("Sprint has started.");
         this._sprint = sprint;
     }
+
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while sprint is started.");
+    }
     
     public void StartSprint()
     {
-        Console.WriteLine("Sprint has already started.");
+        ActionNotAllowed("start");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint while sprint is started.");
+        ActionNotAllowed("close");
     }
     
     public void CancelSprint()
     {
-        Console.WriteLine("Sprint has already started, you can't cancel it anymore.");
+        ActionNotAllowed("cancel");
     }
 
     public void FinishSprint()
@@ -38,26 +43,26 @@ public class SprintStarted : ISprintState
 
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Sprint has already started, you can't edit it anymore.");
+        ActionNotAllowed("edit");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Sprint has already started, you can't add backlog items anymore.");
+        ActionNotAllowed("add backlog item");
     }
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("You can't release a sprint while sprint is started.");
+        ActionNotAllowed("start release");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("You can't cancel a release while sprint is started.");
+        ActionNotAllowed("cancel release");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("You can't start a review while sprint is started.");
+        ActionNotAllowed("start review");
     }
 }
