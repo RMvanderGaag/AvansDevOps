@@ -11,17 +11,17 @@ public class Testing : IBacklogItemState
     
     public void AddSubtask(Subtask subtask)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't add a subtask to a backlog item that is being tested.");
     }
 
     public void RemoveSubtask(Subtask subtask)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't remove a subtask from a backlog item that is being tested.");
     }
 
     public void Complete(List<Subtask> tasks)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't complete a backlog item that is being tested.");
     }
 
     public void Test(bool isCorrect)
@@ -39,7 +39,7 @@ public class Testing : IBacklogItemState
 
     public void Check(bool isCorrect)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't check a backlog item that is being tested.");
     }
 
     public void TransitionToNextState()

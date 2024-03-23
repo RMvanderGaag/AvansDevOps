@@ -12,22 +12,22 @@ public class SprintClosed : ISprintState
     
     public void StartSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a sprint that has already started.");
     }
 
     public void CloseSprint(string review)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint is already closed, you can't close it anymore.");
     }
     
     public void CancelSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint is already closed, you can't cancel it anymore.");
     }
 
     public void FinishSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Sprint is already closed, you can't finish it anymore.");
     }
     
     public void EditSprint(Sprint updatedSprint)
@@ -42,16 +42,16 @@ public class SprintClosed : ISprintState
 
     public void StartRelease(bool failRelease)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't release a sprint that has already ended.");
     }
 
     public void CancelRelease()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't cancel a release that has already ended.");
     }
 
     public void StartReview()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a review for a sprint that has already ended.");
     }
 }

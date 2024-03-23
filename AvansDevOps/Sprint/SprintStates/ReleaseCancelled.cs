@@ -12,46 +12,46 @@ public class ReleaseCancelled : ISprintState
     
     public void StartRelease(bool failRelease)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a release that has been cancelled.");
     }
 
     public void CancelRelease()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Release is already cancelled, you can't cancel it anymore.");
     }
 
     public void StartReview()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a review for a release that has been cancelled.");
     }
 
     public void StartSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't start a sprint that has been cancelled.");
     }
 
     public void CloseSprint(string review)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't close a sprint that has been cancelled.");
     }
 
     public void CancelSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't cancel a sprint that has been cancelled.");
     }
 
     public void FinishSprint()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't finish a sprint that has been cancelled.");
     }
 
     public void EditSprint(Sprint updatedSprint)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't edit a sprint that has been cancelled.");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't add a backlog item to a sprint that has been cancelled.");
     }
 }
