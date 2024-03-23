@@ -1,13 +1,10 @@
 namespace AvansDevOps;
 
-public class ReleaseStarted : ISprintState
+public class ReleaseStarted : SprintStateBase
 {
-    private Sprint _sprint;
     
-    public ReleaseStarted(Sprint sprint, bool failRelease)
+    public ReleaseStarted(Sprint sprint, bool failRelease) : base(sprint)
     {
-        this._sprint = sprint;
-
         Console.WriteLine("Release has started.");
 
         if (_sprint.Pipeline.Execute(failRelease))
@@ -22,53 +19,8 @@ public class ReleaseStarted : ISprintState
         }
     }
     
-    private static void ActionNotAllowed(string action)
-    {
-        Console.WriteLine($"Can't {action} a sprint while release is started.");
-    }
-    
-    public void StartRelease(bool failRelease)
-    {
-        ActionNotAllowed("start release");
-    }
-
-    public void CancelRelease()
+    public override void CancelRelease()
     {
         _sprint.ChangeState(new ReleaseCancelled(_sprint));
-    }
-
-    public void StartReview()
-    {
-        ActionNotAllowed("start review");
-    }
-
-    public void StartSprint()
-    {
-        ActionNotAllowed("start");
-    }
-
-    public void CloseSprint(string review)
-    {
-        ActionNotAllowed("close");
-    }
-
-    public void CancelSprint()
-    {
-        ActionNotAllowed("cancel");
-    }
-
-    public void FinishSprint()
-    {
-        ActionNotAllowed("finish");
-    }
-
-    public void EditSprint(Sprint updatedSprint)
-    {
-        ActionNotAllowed("edit");
-    }
-
-    public void AddBacklogItem(BacklogItem backlogItem)
-    {
-        ActionNotAllowed("add backlog item to");
     }
 }
