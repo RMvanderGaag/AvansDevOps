@@ -10,48 +10,53 @@ public class ReleaseCancelled : ISprintState
         Console.WriteLine("Release has been cancelled.");
     }
     
+    private static void ActionNotAllowed(string action)
+    {
+        Console.WriteLine($"Can't {action} a sprint while release is cancelled.");
+    }
+    
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("Can't start a release that has been cancelled.");
+        ActionNotAllowed("start");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("Release is already cancelled, you can't cancel it anymore.");
+        ActionNotAllowed("cancel");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("Can't start a review while release is cancelled.");
+        ActionNotAllowed("start review");
     }
 
     public void StartSprint()
     {
-        Console.WriteLine("Can't start a sprint while release is cancelled.");
+        ActionNotAllowed("start sprint");
     }
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint while release is cancelled..");
+        ActionNotAllowed("close sprint");
     }
 
     public void CancelSprint()
     {
-        Console.WriteLine("Can't cancel a sprint while release is cancelled.");
+        ActionNotAllowed("cancel sprint");
     }
 
     public void FinishSprint()
     {
-        Console.WriteLine("Can't finish a sprint while release is cancelled.");
+        ActionNotAllowed("finish sprint");
     }
 
     public void EditSprint(Sprint updatedSprint)
     {
-        Console.WriteLine("Can't edit a sprint while release is cancelled.");
+        ActionNotAllowed("edit sprint");
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("Can't add a backlog item to a sprint while release is cancelled.");
+        ActionNotAllowed("add backlog item to");
     }
 }
