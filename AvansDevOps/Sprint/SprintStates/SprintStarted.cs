@@ -16,7 +16,7 @@ public class SprintStarted : ISprintState
 
     public void CloseSprint(string review)
     {
-        Console.WriteLine("Can't close a sprint that has not ended yet.");
+        Console.WriteLine("Can't close a sprint while sprint is started.");
     }
     
     public void CancelSprint()
@@ -48,16 +48,16 @@ public class SprintStarted : ISprintState
 
     public void StartRelease(bool failRelease)
     {
-        Console.WriteLine("You can't release a sprint that has not ended yet.");
+        Console.WriteLine("You can't release a sprint while sprint is started.");
     }
 
     public void CancelRelease()
     {
-        Console.WriteLine("You can't cancel a release that has not started yet.");
+        Console.WriteLine("You can't cancel a release while sprint is started.");
     }
 
     public void StartReview()
     {
-        Console.WriteLine("You can't start a review that has not ended yet.");
+        Console.WriteLine("You can't start a review while sprint is started.");
     }
 }
