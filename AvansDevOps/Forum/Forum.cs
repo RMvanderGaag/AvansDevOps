@@ -12,7 +12,12 @@ public class Forum
         } 
         else
         {
-            Console.WriteLine("Cannot add a thread to a done backlog item.");
+            throw new Exception("Cannot add thread to forum, backlog item is done.");
         }
+    }
+    
+    public List<Thread> GetThreads()
+    {
+        return _threads;
     }
 }
