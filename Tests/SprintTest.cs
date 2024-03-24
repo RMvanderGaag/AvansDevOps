@@ -113,10 +113,31 @@ public class SprintTest
     public void FinishSprintFailsWhenEndDateIsNotReached()
     {
         // Arrange
-        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now, testDeveloper);
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(5), testDeveloper);
         sprint.StartSprint();
 
         // Act
         sprint.FinishSprint();
+        
+        // Assert
+        Assert.IsType<SprintStarted>(sprint.GetCurrentState());
+        
+    }
+
+    [Fact]
+    public void SprintCantChangeState()
+    {
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(5), testDeveloper);
+        
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        
+        sprint.FinishSprint();
+
+        var expectedOutput = "Can't finish sprint a sprint in the current state.";
+        Assert.Contains(expectedOutput, sw.ToString());
+        
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 }
