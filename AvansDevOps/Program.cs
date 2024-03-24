@@ -81,3 +81,5 @@ sprint.CreateReport(new SprintReportPDF());
 project.Commit(backlogItem1);
 project.Push();
 
+var exporter = new SprintReportTXT();
+sprint.CreateReport(exporter);

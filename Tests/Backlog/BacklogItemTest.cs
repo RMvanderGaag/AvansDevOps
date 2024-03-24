@@ -2,7 +2,6 @@ using AvansDevOps;
 
 namespace Tests.Backlog;
 
-[Collection("Collection")]
 public class BacklogItemTest
 {
     private BacklogItem _backlogItem = new BacklogItem("Test");
@@ -31,8 +30,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't test a backlog item that has not been started yet.";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -55,8 +52,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Only a tester can test a backlog item.";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -92,8 +87,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = $"Backlog item '{backlogitem.GetName()}' did not pass the test! Blame: {backlogitem.AssignedTo?.Name}";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -115,8 +108,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't complete a backlog item that is ready for testing.";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -138,8 +129,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't check a backlog item that is ready for testing.";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -161,8 +150,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Only a scrum master can check a backlog item.";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -219,8 +206,6 @@ public class BacklogItemTest
             string expectedOutput = "Backlog item cannot be completed because some backlog items are not done yet.";
             Assert.Contains(expectedOutput, sw.ToString());
             Assert.IsType<Doing>(backlogitem.State);
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
@@ -247,8 +232,6 @@ public class BacklogItemTest
             string expectedOutput = "Backlog item is now completed.";
             Assert.Contains(expectedOutput, sw.ToString());
             Assert.IsType<ReadyForTesting>(backlogitem.State);
-            
-            sw.Flush();
         }
         
         // Reset the console output to avoid affecting other tests
@@ -271,8 +254,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't add a subtask to a backlog item that is being tested.";
             Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
         }
 
         // Reset the console output to avoid affecting other tests
