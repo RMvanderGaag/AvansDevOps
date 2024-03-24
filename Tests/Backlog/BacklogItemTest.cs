@@ -65,4 +65,27 @@ public class BacklogItemTest
         
         Assert.IsType<Tested>(backlogitem.State);
     }
+    
+    // TODO: test if scrum master receives a notification when a backlog item is being moved to the todo state.
+    
+    [Fact]
+    public void CompleteBacklogItemWhenStateWontLetIt_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new ReadyForTesting(backlogitem));
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.Complete();
+
+            // Assert
+            string expectedOutput = "Can't complete a backlog item that is ready for testing.";
+            Assert.Contains(expectedOutput, sw.ToString());
+        }
+
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
 }

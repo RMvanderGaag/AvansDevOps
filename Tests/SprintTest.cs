@@ -74,4 +74,41 @@ public class SprintTest
         // Assert
         Assert.NotEqual(initialState, sprint.GetCurrentState());
     }
+
+    [Fact]
+    public void FinishSprint_ChangesState_WhenCalled()
+    {
+        // Arrange
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now, testDeveloper);
+        sprint.StartSprint();
+
+        // Act
+        sprint.FinishSprint();
+
+        // Assert
+        Assert.IsType<SprintFinished>(sprint.GetCurrentState());
+    }
+    
+    [Fact]
+    public void FinishSprintNotPossibleWhenSprintHasNotEnded_PrintsErrorMessage()
+    {
+        // Arrange
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(10), testDeveloper);
+        sprint.StartSprint();
+
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            sprint.FinishSprint();
+
+            // Assert
+            string expectedOutput = "Sprint has not ended yet.";
+            Assert.Contains(expectedOutput, sw.ToString());
+        }
+
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
 }
