@@ -19,12 +19,17 @@ public class Thread
         }
         else
         {
-            throw new Exception("Cannot add comments to a done backlog item.");
+            Console.WriteLine("Cannot add a thread to a done backlog item.");
         }
     }
     
     public BacklogItem GetBacklogItem()
     {
         return _backlogItem;
+    }
+    
+    public List<Comment> GetComments()
+    {
+        return _comments;
     }
 }
