@@ -29,4 +29,14 @@ public class Project : IProject
         sprint.AddMember(_productOwner, new UserRole("Product Owner"));
         _sprints.Add(sprint);
     }
+    
+    public User GetProductOwner()
+    {
+        return _productOwner;
+    }
+    
+    public List<Sprint> GetSprints()
+    {
+        return _sprints;
+    }
 }
