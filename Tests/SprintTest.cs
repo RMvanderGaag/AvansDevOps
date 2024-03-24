@@ -3,6 +3,7 @@ using AvansDevOps;
 
 namespace Tests;
 
+[Collection("Collection")]
 public class SprintTest
 {
     private UserRole developerRole = new UserRole("Developer");

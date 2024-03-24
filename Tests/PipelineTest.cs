@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+[Collection("Collection")]
 public class PipelineTest
 {
     [Fact]

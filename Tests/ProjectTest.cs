@@ -2,6 +2,7 @@ using AvansDevOps;
 
 namespace Tests;
 
+[Collection("Collection")]
 public class ProjectTest
 {
     [Fact]

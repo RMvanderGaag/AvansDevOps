@@ -3,6 +3,7 @@ using Thread = AvansDevOps.Thread;
 
 namespace Tests;
 
+[Collection("Collection")]
 public class ThreadTest
 {
     [Fact]
