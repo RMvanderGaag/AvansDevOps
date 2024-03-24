@@ -51,23 +51,19 @@ public class ThreadTest
         backlogItem.Test("Tester", true);
         backlogItem.Check("Scrum Master", true);
         
-        using (StringWriter sw = new StringWriter())
-        {
-            var OriginalOut = Console.Out;
-            Console.SetOut(sw);
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
 
-            // Act
-            thread.AddComment(comment);
+        // Act
+        thread.AddComment(comment);
 
-            // Assert
-            string expectedOutput = "Cannot add a thread to a done backlog item.";
-            Assert.Contains(expectedOutput, sw.ToString());
-            Assert.DoesNotContain(comment, thread.GetComments());
+        // Assert
+        string expectedOutput = "Cannot add a thread to a done backlog item.";
+        Assert.Contains(expectedOutput, sw.ToString());
+        Assert.DoesNotContain(comment, thread.GetComments());
 
-            // Reset the console output
-            Console.SetOut(OriginalOut);
-        }
-        
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
     [Fact]
@@ -87,25 +83,17 @@ public class ThreadTest
         sprint.AddMember(user2, new UserRole("Developer"));
         
         sprint.AddBacklogItem(backlogItem);
+
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
         
+        // Act
+        thread.AddComment(comment);
+
+        string expectedOutput = $"New comment added to backlog item '{backlogItem.GetName()}'!";
+        Assert.Contains(expectedOutput, sw.ToString());
         
-        using (StringWriter sw = new StringWriter())
-        {
-            var OriginalOut = Console.Out;
-            Console.SetOut(sw);
-            
-            // Act
-            thread.AddComment(comment);
-
-            string expectedOutput = $"New comment added to backlog item '{backlogItem.GetName()}'!";
-            string a = sw.ToString();
-            Assert.Contains(expectedOutput, sw.ToString());
-            
-            
-            // Reset the console output
-            Console.SetOut(OriginalOut);
-        }
-
-
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 }

@@ -41,8 +41,6 @@ public class SprintTest
         string expectedOutput = "Sprint not found or user does not have permission to close sprints.";
         Assert.Contains(expectedOutput, sw.ToString());
         
-        sw.Flush();
-
         // Reset the console output
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
