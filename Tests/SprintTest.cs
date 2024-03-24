@@ -11,7 +11,7 @@ public class SprintTest
     private UserRole productOwnerRole = new UserRole("Product Owner");
     private UserRole scrumMasterRole = new UserRole("Scrum Master");
     
-    private User testDeveloper = new User("Test Developer", "test@example.com", [new EmailNotificationService()]);
+    private User testDeveloper = new User("Test Developer", "test@example.com", [new SlackNotificationService()]);
     private User scrumMaster = new User("Scrum Master", "scrum@example.com", [new EmailNotificationService()]);
     
     public SprintTest()
@@ -64,7 +64,7 @@ public class SprintTest
     public void StartSprint_ChangesState_WhenCalled()
     {
         // Arrange
-        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(10), new User("Alex Jones", "alex@gmail.com", [new EmailNotificationService()] ));
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(10), new User("Alex Jones", "alex@gmail.com", [new SlackNotificationService()] ));
         var initialState = sprint.GetCurrentState();
 
         // Act
