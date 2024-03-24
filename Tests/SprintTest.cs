@@ -129,15 +129,8 @@ public class SprintTest
     {
         var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(5), testDeveloper);
         
-        using StringWriter sw = new StringWriter();
-        Console.SetOut(sw);
+        sprint.StartReview();
         
-        sprint.FinishSprint();
-
-        var expectedOutput = "Can't finish sprint a sprint in the current state.";
-        Assert.Contains(expectedOutput, sw.ToString());
-        
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+        Assert.IsType<SprintCreated>(sprint.GetCurrentState());
     }
 }
