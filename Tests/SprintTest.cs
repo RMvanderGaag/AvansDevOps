@@ -31,19 +31,17 @@ public class SprintTest
         var sprint = new ReviewSprint("Sprint", DateTime.Now, DateTime.Now.AddDays(10), scrumMaster);
         sprint.AddMember(testDeveloper, developerRole);
 
-        using (StringWriter sw = new StringWriter())
-        {
-            Console.SetOut(sw);
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
 
-            // Act
-            sprint.CloseSprint(testDeveloper, "Completed");
+        // Act
+        sprint.CloseSprint(testDeveloper, "Completed");
 
-            // Assert
-            string expectedOutput = "Sprint not found or user does not have permission to close sprints.";
-            Assert.Contains(expectedOutput, sw.ToString());
-            
-            sw.Flush();
-        }
+        // Assert
+        string expectedOutput = "Sprint not found or user does not have permission to close sprints.";
+        Assert.Contains(expectedOutput, sw.ToString());
+        
+        sw.Flush();
 
         // Reset the console output
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
@@ -99,20 +97,16 @@ public class SprintTest
         var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(10), testDeveloper);
         sprint.StartSprint();
 
-        using (StringWriter sw = new StringWriter())
-        {
-            Console.SetOut(sw);
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
 
-            // Act
-            sprint.FinishSprint();
+        // Act
+        sprint.FinishSprint();
 
-            // Assert
-            string expectedOutput = "Sprint has not ended yet.";
-            Assert.Contains(expectedOutput, sw.ToString());
+        // Assert
+        string expectedOutput = "Sprint has not ended yet.";
+        Assert.Contains(expectedOutput, sw.ToString());
             
-            sw.Flush();
-        }
-
         // Reset the console output
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
