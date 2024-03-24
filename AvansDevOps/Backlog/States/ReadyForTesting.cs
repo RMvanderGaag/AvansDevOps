@@ -26,7 +26,9 @@ public class ReadyForTesting : IBacklogItemState
 
     public void Test(bool isCorrect)
     {
-        Console.WriteLine("Can't test a backlog item that is ready for testing.");
+        TransitionToNextState();
+        // Executing test on the next state Testing.
+        _backlogItem.State.Test(isCorrect);
     }
 
     public void Check(bool isCorrect)

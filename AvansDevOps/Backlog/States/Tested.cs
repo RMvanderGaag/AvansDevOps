@@ -11,7 +11,7 @@ public class Tested : IBacklogItemState
     
     public void AddSubtask(Subtask subtask)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Can't add a subtask to a backlog item that has been tested.");
     }
 
     public void RemoveSubtask(Subtask subtask)

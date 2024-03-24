@@ -16,17 +16,19 @@ public class BacklogItemTest
     }
     
     [Fact]
-    public void TestingBacklogItemNotReadyForTesting_PrintsErrorMessage()
+    public void TestingBacklogItemThatHasTodoState_PrintsErrorMessage()
     {
+        var backlogItem = new BacklogItem("Test");
+        
         using (var sw = new StringWriter())
         {
             Console.SetOut(sw);
 
             // Act
-            _backlogItem.Test("Tester", true);
+            backlogItem.Test("Tester", true);
 
             // Assert
-            string expectedOutput = "Can't test a backlog item that is not ready for testing.";
+            string expectedOutput = "Can't test a backlog item that has not been started yet.";
             Assert.Contains(expectedOutput, sw.ToString());
         }
 
@@ -186,4 +188,12 @@ public class BacklogItemTest
         // Assert
         Assert.IsType<Done>(backlogitem.State);
     }
+
+    [Fact]
+    public void TestBacklogItem()
+    {
+        
+    }
+    
+    // Todo: Add test for completing a backlog item when subtasks are not done yet and when they are done.
 }
