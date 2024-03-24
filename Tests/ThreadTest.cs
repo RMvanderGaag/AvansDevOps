@@ -3,6 +3,7 @@ using Thread = AvansDevOps.Thread;
 
 namespace Tests;
 
+[Collection("Collection")]
 public class ThreadTest
 {
     [Fact]
@@ -61,6 +62,8 @@ public class ThreadTest
             string expectedOutput = "Cannot add a thread to a done backlog item.";
             Assert.Contains(expectedOutput, sw.ToString());
             Assert.DoesNotContain(comment, thread.GetComments());
+            
+            sw.Flush();
         }
 
         // Reset the console output
@@ -97,6 +100,8 @@ public class ThreadTest
             string expectedOutput = $"New comment added to backlog item '{backlogItem.GetName()}'!";
             string a = sw.ToString();
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output
