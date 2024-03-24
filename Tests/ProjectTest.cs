@@ -65,6 +65,8 @@ public class ProjectTest
             Project.Commit(backlogItem);
             
             Assert.Contains("Committing changes to the repository.", sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output
@@ -93,6 +95,8 @@ public class ProjectTest
             Project.Push();
 
             Assert.Contains("Pushing changes to the repository.", sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output

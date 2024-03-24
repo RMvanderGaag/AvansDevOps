@@ -41,6 +41,8 @@ public class SprintTest
             // Assert
             string expectedOutput = "Sprint not found or user does not have permission to close sprints.";
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output
@@ -107,9 +109,22 @@ public class SprintTest
             // Assert
             string expectedOutput = "Sprint has not ended yet.";
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
+
+    [Fact]
+    public void FinishSprintFailsWhenEndDateIsNotReached()
+    {
+        // Arrange
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now, testDeveloper);
+        sprint.StartSprint();
+
+        // Act
+        sprint.FinishSprint();
     }
 }

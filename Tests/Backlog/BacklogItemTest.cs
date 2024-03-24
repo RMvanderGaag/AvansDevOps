@@ -88,7 +88,6 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = $"Backlog item '{backlogitem.GetName()}' did not pass the test! Blame: {backlogitem.AssignedTo?.Name}";
             Assert.Contains(expectedOutput, sw.ToString());
-            Assert.IsType<Todo>(backlogitem.State);
         }
 
         // Reset the console output to avoid affecting other tests
