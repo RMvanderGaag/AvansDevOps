@@ -68,7 +68,6 @@ public class ThreadTest
 
         // Reset the console output
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
-        
     }
 
     [Fact]
@@ -106,6 +105,5 @@ public class ThreadTest
 
         // Reset the console output
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
-
     }
 }
