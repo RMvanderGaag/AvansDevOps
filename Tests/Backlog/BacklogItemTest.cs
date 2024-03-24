@@ -190,10 +190,73 @@ public class BacklogItemTest
     }
 
     [Fact]
-    public void TestBacklogItem()
+    public void CompleteBacklogItemWhenSubtasksAreNotDone_PrintsErrorMessage()
     {
-        
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.AddSubtask(new Subtask("Test Subtask"));
+        backlogitem.ChangeState(new Doing(backlogitem));
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.Complete();
+
+            // Assert
+            string expectedOutput = "Backlog item cannot be completed because some backlog items are not done yet.";
+            Assert.Contains(expectedOutput, sw.ToString());
+            Assert.IsType<Doing>(backlogitem.State);
+        }
+
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
     
-    // Todo: Add test for completing a backlog item when subtasks are not done yet and when they are done.
+    [Fact]
+    public void CompleteBacklogItemWhenSubtasksAreDone_ChangesStateToReadyForTesting()
+    {
+        var sprint = new ReviewSprint("Test Sprint", DateTime.Now, DateTime.Now.AddDays(10), new User("Scrum Master", "scrum@gmail.com", [new EmailNotificationService()]));
+        var backlogitem = new BacklogItem("Test");
+        sprint.AddBacklogItem(backlogitem);
+        backlogitem.AddSubtask(new Subtask("Test Subtask"));
+        backlogitem.ChangeState(new Doing(backlogitem));
+        backlogitem.GetTasks().ForEach(t => t.Complete());
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.Complete();
+
+            // Assert
+            string expectedOutput = "Backlog item is now completed.";
+            Assert.Contains(expectedOutput, sw.ToString());
+            Assert.IsType<ReadyForTesting>(backlogitem.State);
+        }
+        
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
+    
+    [Fact]
+    public void AddSubtaskToBacklogItemWhileInTestingState_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new Testing(backlogitem));
+        
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.AddSubtask(new Subtask("Test Subtask"));
+
+            // Assert
+            string expectedOutput = "Can't add a subtask to a backlog item that is being tested.";
+            Assert.Contains(expectedOutput, sw.ToString());
+        }
+
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
 }
