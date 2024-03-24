@@ -76,7 +76,6 @@ sprint.FinishSprint();
 // sprint.CloseSprint(user1, "Sprint was successful!");
 
 sprint.StartRelease(false);
-sprint.CreateReport(new SprintReportPDF());
 
 project.Commit(backlogItem1);
 project.Push();
