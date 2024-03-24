@@ -2,6 +2,7 @@ using AvansDevOps;
 
 namespace Tests.Backlog;
 
+[Collection("Collection")]
 public class BacklogItemTest
 {
     private BacklogItem _backlogItem = new BacklogItem("Test");
