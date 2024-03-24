@@ -304,21 +304,9 @@ public class BacklogItemTest
         var backlogitem = new BacklogItem("Test");
         backlogitem.ChangeState(new Done(backlogitem));
         
-        using (var sw = new StringWriter())
-        {
-            var originalOut = Console.Out;
-            Console.SetOut(sw);
+        backlogitem.TransitionToNextState();
 
-            // Act
-            backlogitem.ChangeState(new ReadyForTesting(backlogitem));
-
-            // Assert
-            string expectedOutput = "Can't change the state of a backlog item that is done.";
-            Assert.Contains(expectedOutput, sw.ToString());
-            
-            // Reset the console output to avoid affecting other tests
-            Console.SetOut(originalOut);
-        }
+        Assert.IsType<Done>(backlogitem.State);
 
     }
 }
