@@ -273,4 +273,28 @@ public class BacklogItemTest
         }
 
     }
+    
+    [Fact]
+    public void AddSubtaskToBacklogItemWhileInDoneState_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new Done(backlogitem));
+        
+        using (var sw = new StringWriter())
+        {
+            var originalOut = Console.Out;
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.AddSubtask(new Subtask("Test Subtask"));
+
+            // Assert
+            string expectedOutput = "Can't add a subtask to a backlog item that is done.";
+            Assert.Contains(expectedOutput, sw.ToString());
+            
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
+        }
+
+    }
 }
