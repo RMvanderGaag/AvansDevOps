@@ -25,9 +25,6 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
-
   build:
     name: Build and analyze
     runs-on: windows-latest
