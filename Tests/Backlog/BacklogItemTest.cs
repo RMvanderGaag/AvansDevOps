@@ -309,4 +309,28 @@ public class BacklogItemTest
         Assert.IsType<Done>(backlogitem.State);
 
     }
+    
+    [Fact]
+    public void CheckWhileDone_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new Done(backlogitem));
+        
+        backlogitem.Check("Scrum Master", true);
+
+        Assert.IsType<Done>(backlogitem.State);
+
+    }
+    
+    [Fact]
+    public void CompleteWhileDone_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new Done(backlogitem));
+        
+        backlogitem.Complete();
+
+        Assert.IsType<Done>(backlogitem.State);
+
+    }
 }
