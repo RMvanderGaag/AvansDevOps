@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+[Collection("Collection")]
 public class PipelineTest
 {
     [Fact]
@@ -36,6 +37,8 @@ public class PipelineTest
             
             Assert.Contains("Pipeline has been completed.", sw.ToString());
             Assert.Contains("Release has been completed.", sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output
@@ -63,6 +66,8 @@ public class PipelineTest
 
             Assert.Contains("Pipeline failed. Try again!", sw.ToString());
             Assert.Contains("Release has failed.", sw.ToString());
+            
+            sw.Flush();
         }
 
         // Reset the console output

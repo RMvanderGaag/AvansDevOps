@@ -2,6 +2,7 @@ using AvansDevOps;
 
 namespace Tests;
 
+[Collection("Collection")]
 public class SprintFactoryTest
 {
     private UserRole developerRole = new UserRole("Developer");
