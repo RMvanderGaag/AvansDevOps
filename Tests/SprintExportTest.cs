@@ -12,26 +12,22 @@ public class SprintExportTest
         var reportExporter = new SprintReportTXT();
         var sprintName = "Sprint 1";
         
-        using (StringWriter sw = new StringWriter())
-        {
-            var OriginalOut = Console.Out;
-            Console.SetOut(sw);
-            // Act
-            reportExporter.ExportReport(sprintName);
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        // Act
+        reportExporter.ExportReport(sprintName);
 
-            // Assert
-            var output = sw.ToString();
-            Assert.Contains("------HEADER------", output);
-            Assert.Contains("Sprint report for Sprint 1", output);
-            Assert.Contains("Sprint data comes in here. - TXT formatted data.", output);
-            Assert.Contains($"Exported on {DateTime.Now:dd/MM/yyy}", output);
-            Assert.Contains("-----FOOTER-----", output);
-            Assert.Contains("TXT file saved.", output);
-            
-            // Reset the console output
-            Console.SetOut(OriginalOut);
-        }
-
+        // Assert
+        var output = sw.ToString();
+        Assert.Contains("------HEADER------", output);
+        Assert.Contains("Sprint report for Sprint 1", output);
+        Assert.Contains("Sprint data comes in here. - TXT formatted data.", output);
+        Assert.Contains($"Exported on {DateTime.Now:dd/MM/yyy}", output);
+        Assert.Contains("-----FOOTER-----", output);
+        Assert.Contains("TXT file saved.", output);
+        
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
     
     [Fact]
@@ -40,26 +36,22 @@ public class SprintExportTest
         // Arrange
         var reportExporter = new SprintReportPDF();
         var sprintName = "Sprint 1";
-        
-        using (StringWriter sw = new StringWriter())
-        {
-            var OriginalOut = Console.Out;
-            Console.SetOut(sw);
-            // Act
-            reportExporter.ExportReport(sprintName);
 
-            // Assert
-            var output = sw.ToString();
-            Assert.Contains("------HEADER------", output);
-            Assert.Contains("Sprint report for Sprint 1", output);
-            Assert.Contains("Sprint data comes in here. - PDF formatted data.", output);
-            Assert.Contains($"Exported on {DateTime.Now:dd/MM/yyy}", output);
-            Assert.Contains("-----FOOTER-----", output);
-            Assert.Contains("PDF file saved.", output);
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        // Act
+        reportExporter.ExportReport(sprintName);
 
-            // Reset the console output
-            Console.SetOut(OriginalOut);
-            
-        }
+        // Assert
+        var output = sw.ToString();
+        Assert.Contains("------HEADER------", output);
+        Assert.Contains("Sprint report for Sprint 1", output);
+        Assert.Contains("Sprint data comes in here. - PDF formatted data.", output);
+        Assert.Contains($"Exported on {DateTime.Now:dd/MM/yyy}", output);
+        Assert.Contains("-----FOOTER-----", output);
+        Assert.Contains("PDF file saved.", output);
+
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 }
