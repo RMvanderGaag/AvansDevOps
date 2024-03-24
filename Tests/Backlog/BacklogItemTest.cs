@@ -111,4 +111,62 @@ public class BacklogItemTest
         // Reset the console output to avoid affecting other tests
         Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
+    
+    [Fact]
+    public void CheckBacklogItemWhenStateWontLetIt_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new ReadyForTesting(backlogitem));
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.Check("Scrum Master", true);
+
+            // Assert
+            string expectedOutput = "Can't check a backlog item that is ready for testing.";
+            Assert.Contains(expectedOutput, sw.ToString());
+        }
+
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
+    
+    [Fact]
+    public void CheckBacklogItemWithIncorrectRole_PrintsErrorMessage()
+    {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new ReadyForTesting(backlogitem));
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.Check("Developer", true);
+
+            // Assert
+            string expectedOutput = "Only a scrum master can check a backlog item.";
+            Assert.Contains(expectedOutput, sw.ToString());
+        }
+
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
+
+    [Fact]
+    public void CheckBacklogItemAndFailTest_ChangeStateToReadyForTesting()
+    {
+        var sprint = new ReviewSprint("Sprint", DateTime.Now, DateTime.Now.AddDays(10), new User("Scrum Master", "scrum@gmail.com", [new EmailNotificationService()]));
+        var backlogitem = new BacklogItem("Test");
+        sprint.AddBacklogItem(backlogitem);
+        backlogitem.AssignTo(testDeveloper);
+        
+        // Act
+        backlogitem.ChangeState(new Tested(backlogitem));
+        backlogitem.Check("Scrum Master", false);
+        
+        // Assert
+        Assert.IsType<ReadyForTesting>(backlogitem.State);
+    }
 }

@@ -62,8 +62,11 @@ public class BacklogItem : BacklogComponent, IGitItem
     
     public void Check(string role, bool isCorrect)
     {
-        if (State is not Tested) return;
-        if (!role.Equals("Scrum Master")) return;
+        if (!role.Equals("Scrum Master"))
+        {
+            Console.WriteLine("Only a scrum master can check a backlog item.");
+            return;
+        }
         State.Check(isCorrect);
     }
     
