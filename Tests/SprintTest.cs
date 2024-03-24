@@ -33,6 +33,7 @@ public class SprintTest
 
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -42,11 +43,10 @@ public class SprintTest
             string expectedOutput = "Sprint not found or user does not have permission to close sprints.";
             Assert.Contains(expectedOutput, sw.ToString());
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(OriginalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
     
     [Fact]
@@ -101,6 +101,7 @@ public class SprintTest
 
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -110,11 +111,10 @@ public class SprintTest
             string expectedOutput = "Sprint has not ended yet.";
             Assert.Contains(expectedOutput, sw.ToString());
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(OriginalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
     [Fact]

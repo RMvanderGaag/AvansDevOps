@@ -23,6 +23,7 @@ public class BacklogItemTest
         
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -31,10 +32,11 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't test a backlog item that has not been started yet.";
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
         }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
     
     [Fact]
@@ -45,6 +47,7 @@ public class BacklogItemTest
         
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -53,10 +56,11 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Only a tester can test a backlog item.";
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
         }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
     
     [Fact]
@@ -80,6 +84,7 @@ public class BacklogItemTest
         
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -88,10 +93,10 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = $"Backlog item '{backlogitem.GetName()}' did not pass the test! Blame: {backlogitem.AssignedTo?.Name}";
             Assert.Contains(expectedOutput, sw.ToString());
-        }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
+        }
     }
     
     [Fact]
@@ -101,6 +106,7 @@ public class BacklogItemTest
         backlogitem.ChangeState(new ReadyForTesting(backlogitem));
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -109,10 +115,10 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't complete a backlog item that is ready for testing.";
             Assert.Contains(expectedOutput, sw.ToString());
-        }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
+        }
     }
     
     [Fact]
@@ -122,6 +128,7 @@ public class BacklogItemTest
         backlogitem.ChangeState(new ReadyForTesting(backlogitem));
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -130,10 +137,10 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't check a backlog item that is ready for testing.";
             Assert.Contains(expectedOutput, sw.ToString());
-        }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
+        }
     }
     
     [Fact]
@@ -143,6 +150,7 @@ public class BacklogItemTest
         backlogitem.ChangeState(new ReadyForTesting(backlogitem));
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -151,10 +159,11 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Only a scrum master can check a backlog item.";
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
         }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
     [Fact]
@@ -198,6 +207,7 @@ public class BacklogItemTest
         backlogitem.ChangeState(new Doing(backlogitem));
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -207,10 +217,10 @@ public class BacklogItemTest
             string expectedOutput = "Backlog item cannot be completed because some backlog items are not done yet.";
             Assert.Contains(expectedOutput, sw.ToString());
             Assert.IsType<Doing>(backlogitem.State);
-        }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
+        }
     }
     
     [Fact]
@@ -224,6 +234,7 @@ public class BacklogItemTest
         backlogitem.GetTasks().ForEach(t => t.Complete());
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -233,10 +244,10 @@ public class BacklogItemTest
             string expectedOutput = "Backlog item is now completed.";
             Assert.Contains(expectedOutput, sw.ToString());
             Assert.IsType<ReadyForTesting>(backlogitem.State);
-        }
         
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
+        }
     }
     
     [Fact]
@@ -247,6 +258,7 @@ public class BacklogItemTest
         
         using (var sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -255,9 +267,10 @@ public class BacklogItemTest
             // Assert
             string expectedOutput = "Can't add a subtask to a backlog item that is being tested.";
             Assert.Contains(expectedOutput, sw.ToString());
+            
+            // Reset the console output to avoid affecting other tests
+            Console.SetOut(originalOut);
         }
 
-        // Reset the console output to avoid affecting other tests
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 }

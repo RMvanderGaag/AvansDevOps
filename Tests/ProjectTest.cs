@@ -60,17 +60,17 @@ public class ProjectTest
         
         using (StringWriter sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             Project.Commit(backlogItem);
             
             Assert.Contains("Committing changes to the repository.", sw.ToString());
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(originalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
     [Fact]
@@ -90,17 +90,17 @@ public class ProjectTest
 
         using (StringWriter sw = new StringWriter())
         {
+            var originalOut = Console.Out;
             Console.SetOut(sw);
 
             Project.Push();
 
             Assert.Contains("Pushing changes to the repository.", sw.ToString());
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(originalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
 }
