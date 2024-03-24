@@ -57,20 +57,16 @@ public class ProjectTest
         var backlogItem = new BacklogItem("Create a new thread");
         
         sprint.AddBacklogItem(backlogItem);
+
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+
+        Project.Commit(backlogItem);
         
-        using (StringWriter sw = new StringWriter())
-        {
-            var originalOut = Console.Out;
-            Console.SetOut(sw);
-
-            Project.Commit(backlogItem);
-            
-            Assert.Contains("Committing changes to the repository.", sw.ToString());
-            
-            // Reset the console output
-            Console.SetOut(originalOut);
-        }
-
+        Assert.Contains("Committing changes to the repository.", sw.ToString());
+        
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
     [Fact]
@@ -88,19 +84,15 @@ public class ProjectTest
 
         sprint.AddBacklogItem(backlogItem);
 
-        using (StringWriter sw = new StringWriter())
-        {
-            var originalOut = Console.Out;
-            Console.SetOut(sw);
+        StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
 
-            Project.Push();
+        Project.Push();
 
-            Assert.Contains("Pushing changes to the repository.", sw.ToString());
-            
-            // Reset the console output
-            Console.SetOut(originalOut);
-        }
-
+        Assert.Contains("Pushing changes to the repository.", sw.ToString());
+        
+        // Reset the console output
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
 }
