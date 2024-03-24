@@ -45,8 +45,17 @@ public class BacklogItem : BacklogComponent, IGitItem
 
     public void Test(string role, bool isCorrect)
     {
-        if (State is not ReadyForTesting) return;
-        if (!role.Equals("Tester")) return;
+        if (State is not ReadyForTesting)
+        {
+            Console.WriteLine("Can't test a backlog item that is not ready for testing.");
+            return;
+        }
+
+        if (!role.Equals("Tester"))
+        {
+            Console.WriteLine("Only a tester can test a backlog item.");
+            return;
+        }
         TransitionToNextState();
         State.Test(isCorrect);
     }

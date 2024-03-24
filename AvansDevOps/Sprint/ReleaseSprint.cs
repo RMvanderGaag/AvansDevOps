@@ -6,7 +6,7 @@ public class ReleaseSprint : Sprint
     {
     }
     
-    // Notify scrum master and product owner via mail or Slack.
+    // TODO: Notify scrum master and product owner via mail or Slack. Of gebeurt dit al?
     public void Cancel()
     {
         this.CurrentState.CancelRelease();
