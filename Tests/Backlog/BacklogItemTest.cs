@@ -66,7 +66,30 @@ public class BacklogItemTest
         Assert.IsType<Tested>(backlogitem.State);
     }
     
-    // TODO: test if scrum master receives a notification when a backlog item is being moved to the todo state.
+    [Fact]
+    public void CheckNotificationWhenBacklogItemIsMovedToTodo_PrintErrorMessage()
+    {
+        var sprint = new ReviewSprint("Sprint", DateTime.Now, DateTime.Now.AddDays(10), new User("Scrum Master", "scrum@gmail.com", [new EmailNotificationService()]));
+        var backlogitem = new BacklogItem("Test");
+        sprint.AddBacklogItem(backlogitem);
+        backlogitem.AssignTo(testDeveloper);
+        backlogitem.ChangeState(new ReadyForTesting(backlogitem));
+        
+        using (var sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+
+            // Act
+            backlogitem.Test("Tester", false);
+
+            // Assert
+            string expectedOutput = $"Backlog item '{backlogitem.GetName()}' did not pass the test! Blame: {backlogitem.AssignedTo?.Name}";
+            Assert.Contains(expectedOutput, sw.ToString());
+        }
+
+        // Reset the console output to avoid affecting other tests
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+    }
     
     [Fact]
     public void CompleteBacklogItemWhenStateWontLetIt_PrintsErrorMessage()
