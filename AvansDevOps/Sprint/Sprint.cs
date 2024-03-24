@@ -8,7 +8,6 @@ public abstract class Sprint : ISubject
     protected ISprintState CurrentState;
     public List<BacklogItem> BacklogItems { get; } = new List<BacklogItem>();
     private Dictionary<User, UserRole> _memberships = new Dictionary<User, UserRole>();
-    protected User _scrumMaster { get; private set; }
     private List<IObserver> _observers = new List<IObserver>();
     public readonly Pipeline Pipeline = new Pipeline();
 
@@ -18,7 +17,6 @@ public abstract class Sprint : ISubject
         Name = name;
         StartDate = startDate;
         EndDate = endDate;
-        _scrumMaster = scrumMaster;
         var role = new UserRole("Scrum Master");
         role.AddPermission(new UserPermission("CloseSprint"));
         _memberships.Add(scrumMaster, role);
@@ -114,5 +112,15 @@ public abstract class Sprint : ISubject
         {
             observer.Update(this, message, observer.Name);
         }
+    }
+    
+    public ISprintState GetCurrentState()
+    {
+        return CurrentState;
+    }
+    
+    public List<User> GetMembers()
+    {
+        return _memberships.Keys.ToList();
     }
 }
