@@ -169,4 +169,21 @@ public class BacklogItemTest
         // Assert
         Assert.IsType<ReadyForTesting>(backlogitem.State);
     }
+
+    [Fact]
+    public void CheckBacklogItemAndPassTest_ChangeStateToDone()
+    {
+        var sprint = new ReviewSprint("Sprint", DateTime.Now, DateTime.Now.AddDays(10),
+            new User("Scrum Master", "scrum@gmail.com", [new EmailNotificationService()]));
+        var backlogitem = new BacklogItem("Test");
+        sprint.AddBacklogItem(backlogitem);
+        backlogitem.AssignTo(testDeveloper);
+
+        // Act
+        backlogitem.ChangeState(new Tested(backlogitem));
+        backlogitem.Check("Scrum Master", true);
+
+        // Assert
+        Assert.IsType<Done>(backlogitem.State);
+    }
 }
