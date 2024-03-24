@@ -6,28 +6,24 @@ public abstract class SprintReportExporter
     public DateTime ExportDate { get; set; }
     
     // TEMPLATE PATTERN: here we are defining the skeleton of the algorithm.
-    public void ExportReport(string sprintName)
+    public SprintReportDTO ExportReport(string sprintName)
     {
         SprintName = sprintName;
         ExportDate = DateTime.Now;
-        string header = CreateHeader();
-        string footer = CreateFooter();
-        var formattedData = FormatData("Sprint data comes in here.");
-        var reportContent = $"{header}\n{formattedData}\n{footer}";
 
-        SaveData(reportContent);
+        var reportDTO = new SprintReportDTO()
+        {
+            Header = CreateHeader(),
+            Body = FormatData("Sprint data comes in here."),
+            Footer = CreateFooter()
+        };
+        
+        SaveData(reportDTO);
+        return reportDTO;
     }
 
-    private string CreateHeader()
-    {
-        return $"------HEADER------\nSprint report for {SprintName}\n------HEADER------\n";
-    }
-    
-    private string CreateFooter()
-    {
-        return $"\n-----FOOTER-----\nExported on {ExportDate:dd-MM-yyyy}\n-----FOOTER-----\n";
-    }
-    
+    private string CreateHeader() => $"------HEADER------Sprint report for {SprintName}------HEADER------";
+    private string CreateFooter() => $"-----FOOTER-----Exported on {ExportDate:dd-MM-yyyy}-----FOOTER-----";
     protected abstract string FormatData(string sprintData);
-    protected abstract void SaveData(string sprintData);
+    protected abstract void SaveData(SprintReportDTO reportDTO);
 }

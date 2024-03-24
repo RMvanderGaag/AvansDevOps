@@ -2,14 +2,11 @@ namespace AvansDevOps;
 
 public class SprintReportTXT : SprintReportExporter
 {
-    protected override string FormatData(string sprintData)
-    {
-        return $"{sprintData} - TXT formatted data.";
-    }
+    protected override string FormatData(string sprintData) => $"{sprintData} - TXT formatted data.";
 
-    protected override void SaveData(string formattedData)
+    protected override void SaveData(SprintReportDTO reportDTO)
     {
-        Console.WriteLine(formattedData);
-        Console.WriteLine("TXT file saved.");
+        var serializedDTO = System.Text.Json.JsonSerializer.Serialize(reportDTO);
+        Console.WriteLine(serializedDTO);
     }
 }
