@@ -31,6 +31,7 @@ public class PipelineTest
         
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
 
             sprint.StartRelease(false);
@@ -38,11 +39,9 @@ public class PipelineTest
             Assert.Contains("Pipeline has been completed.", sw.ToString());
             Assert.Contains("Release has been completed.", sw.ToString());
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(OriginalOut);
         }
-
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 
     [Fact]
@@ -60,6 +59,7 @@ public class PipelineTest
 
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
 
             sprint.StartRelease(true);
@@ -67,10 +67,9 @@ public class PipelineTest
             Assert.Contains("Pipeline failed. Try again!", sw.ToString());
             Assert.Contains("Release has failed.", sw.ToString());
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(OriginalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
 }

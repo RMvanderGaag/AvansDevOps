@@ -14,6 +14,7 @@ public class SprintExportTest
         
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
             // Act
             reportExporter.ExportReport(sprintName);
@@ -27,11 +28,10 @@ public class SprintExportTest
             Assert.Contains("-----FOOTER-----", output);
             Assert.Contains("TXT file saved.", output);
             
-            sw.Flush();
+            // Reset the console output
+            Console.SetOut(OriginalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
     }
     
     [Fact]
@@ -43,6 +43,7 @@ public class SprintExportTest
         
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
             // Act
             reportExporter.ExportReport(sprintName);
@@ -55,11 +56,10 @@ public class SprintExportTest
             Assert.Contains($"Exported on {DateTime.Now:dd/MM/yyy}", output);
             Assert.Contains("-----FOOTER-----", output);
             Assert.Contains("PDF file saved.", output);
-            
-            sw.Flush();
-        }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output
+            Console.SetOut(OriginalOut);
+            
+        }
     }
 }

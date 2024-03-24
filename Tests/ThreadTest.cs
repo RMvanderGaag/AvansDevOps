@@ -53,6 +53,7 @@ public class ThreadTest
         
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
 
             // Act
@@ -62,12 +63,11 @@ public class ThreadTest
             string expectedOutput = "Cannot add a thread to a done backlog item.";
             Assert.Contains(expectedOutput, sw.ToString());
             Assert.DoesNotContain(comment, thread.GetComments());
-            
-            sw.Flush();
-        }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            // Reset the console output
+            Console.SetOut(OriginalOut);
+        }
+        
     }
 
     [Fact]
@@ -91,6 +91,7 @@ public class ThreadTest
         
         using (StringWriter sw = new StringWriter())
         {
+            var OriginalOut = Console.Out;
             Console.SetOut(sw);
             
             // Act
@@ -100,10 +101,11 @@ public class ThreadTest
             string a = sw.ToString();
             Assert.Contains(expectedOutput, sw.ToString());
             
-            sw.Flush();
+            
+            // Reset the console output
+            Console.SetOut(OriginalOut);
         }
 
-        // Reset the console output
-        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+
     }
 }
