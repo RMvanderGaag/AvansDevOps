@@ -14,7 +14,7 @@ public class BacklogItemTest
         
         Assert.Equal(testDeveloper, _backlogItem.AssignedTo);
     }
-
+    
     [Fact]
     public void TestingBacklogItemNotReadyForTesting_PrintsErrorMessage()
     {
@@ -37,12 +37,15 @@ public class BacklogItemTest
     [Fact]
     public void TestingBacklogItemWithIncorrectRole_PrintsErrorMessage()
     {
+        var backlogitem = new BacklogItem("Test");
+        backlogitem.ChangeState(new ReadyForTesting(backlogitem));
+        
         using (var sw = new StringWriter())
         {
             Console.SetOut(sw);
 
             // Act
-            _backlogItem.Test("Developer", true);
+            backlogitem.Test("Developer", true);
 
             // Assert
             string expectedOutput = "Only a tester can test a backlog item.";
